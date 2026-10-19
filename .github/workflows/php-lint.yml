@@ -1,0 +1,36 @@
+name: PHP syntax checks
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main, security-hardening-2026-10-19]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  php-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          tools: none
+      - name: Lint all PHP files
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -d '' files < <(find . -type f -name '*.php' -not -path './vendor/*' -print0)
+          if [ "${#files[@]}" -eq 0 ]; then
+            echo "No PHP files found"
+            exit 1
+          fi
+          for file in "${files[@]}"; do
+            echo "Linting $file"
+            php -l "$file"
+          done
