@@ -161,7 +161,7 @@ if ($action === 'call_create') {
             $online=$peer && !empty($peer['last_seen']) && (time()-strtotime($peer['last_seen'])<=45);
         }
         json_out(['ok'=>true,'call_id'=>$callId,'existing'=>false,'peer_online'=>$online]);
-    } catch(Throwable $e) { if(db()->inTransaction()) db()->rollBack(); error_log('call_create: '.$e->getMessage()); json_out(['ok'=>false,'error'=>'call_create_failed','detail'=>$e->getMessage()],500); }
+    } catch(Throwable $e) { if(db()->inTransaction()) db()->rollBack(); error_log('call_create: '.$e->getMessage()); json_out(['ok'=>false,'error'=>'call_create_failed'],500); }
 }
 
 if ($action === 'call_list') {
@@ -403,7 +403,14 @@ if ($action === 'search_users') {
         $phone = norm_phone($q);
         $st = db()->prepare('SELECT id, phone, username, first_name, last_name, avatar_path, last_seen FROM users WHERE phone = ? AND id <> ? LIMIT 5');
         $st->execute([$phone, $uid]);
-        $rows = array_map(fn($r) => user_json($r, false), $st->fetchAll());
+        $rows = $st->fetchAll();
+        foreach ($rows as &$row) {
+            // A matching phone number alone must not reveal the user's phone back to arbitrary accounts.
+            $contact = db()->prepare('SELECT 1 FROM contacts WHERE user_id = ? AND contact_user_id = ? LIMIT 1');
+            $contact->execute([$uid, (int)$row['id']]);
+            $row = user_json($row, !$contact->fetchColumn());
+        }
+        unset($row);
         json_out(['ok' => true, 'users' => $rows]);
     }
     // جستجو با نام یا یوزرنیم — شماره مخفی
@@ -1204,7 +1211,7 @@ if ($action === 'send_message') {
     } catch (Throwable $e) {
         if ($pdo->inTransaction()) $pdo->rollBack();
         error_log('send_message: ' . $e->getMessage());
-        json_out(['ok' => false, 'error' => 'server_error', 'detail' => $e->getMessage()], 500);
+        json_out(['ok' => false, 'error' => 'server_error'], 500);
     }
 
     if ($hasMediaCols) {
@@ -1274,7 +1281,7 @@ if ($action === 'my_sessions') {
             }
         } catch (Throwable $e2) {
             error_log('my_sessions: ' . $e2->getMessage());
-            json_out(['ok' => false, 'error' => 'server_error', 'detail' => $e2->getMessage()], 500);
+            json_out(['ok' => false, 'error' => 'server_error'], 500);
         }
     }
     json_out(['ok' => true, 'sessions' => $list]);
@@ -1406,6 +1413,7 @@ if ($action === 'pin_chat') {
             db()->prepare('UPDATE conversation_members SET pinned_at = NULL WHERE conversation_id = ? AND user_id = ?')->execute([$cid, $uid]);
         }
     } catch (Throwable $e) {
+        error_log('save_push_subscription migration failed: ' . $e->getMessage());
         json_out(['ok' => false, 'error' => 'migration_required'], 500);
     }
     json_out(['ok' => true, 'pinned' => $pin]);
@@ -1452,7 +1460,7 @@ if ($action === 'save_push_subscription') {
             ->execute([$uid, $endpoint, $p256dh, $auth, $ua ?: null]);
         json_out(['ok' => true]);
     } catch (Throwable $e) {
-        json_out(['ok' => false, 'error' => 'migration_required', 'detail' => $e->getMessage()], 500);
+        json_out(['ok' => false, 'error' => 'migration_required'], 500);
     }
 }
 
@@ -1585,7 +1593,7 @@ if ($action === 'forward_message') {
         $pdo->prepare('UPDATE conversations SET updated_at = NOW() WHERE id = ?')->execute([$targetCid]);
         json_out(['ok' => true, 'message_id' => $newId, 'conversation_id' => $targetCid]);
     } catch (Throwable $e) {
-        json_out(['ok' => false, 'error' => 'server_error', 'detail' => $e->getMessage()], 500);
+        json_out(['ok' => false, 'error' => 'server_error'], 500);
     }
 }
 
@@ -1603,7 +1611,8 @@ if ($action === 'set_crypto_key') {
             db()->prepare('UPDATE users SET crypto_public_key = ? WHERE id = ?')->execute([$pub, $uid]);
             json_out(['ok' => true]);
         } catch (Throwable $e2) {
-            json_out(['ok' => false, 'error' => 'migration_required', 'detail' => $e2->getMessage()], 500);
+            error_log('set_crypto_key migration failed: ' . $e2->getMessage());
+            json_out(['ok' => false, 'error' => 'migration_required'], 500);
         }
     }
 }
