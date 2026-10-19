@@ -49,8 +49,7 @@ if ($existingUser) {
     // فقط نشست‌های منقضی را پاک کن — تعداد نشست همزمان نامحدود است
     $pdo->prepare('DELETE FROM auth_sessions WHERE expires_at < NOW()')->execute();
     $ua = substr((string)($_SERVER['HTTP_USER_AGENT'] ?? ''), 0, 500);
-    $ip = substr((string)($_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? ''), 0, 45);
-    if (str_contains($ip, ',')) $ip = trim(explode(',', $ip)[0]);
+    $ip = substr((string)($_SERVER['REMOTE_ADDR'] ?? ''), 0, 45);
     $pdo->prepare('INSERT INTO auth_sessions (user_id, token_hash, user_agent, device_label, ip, expires_at) VALUES (?, ?, ?, ?, ?, ?)')
         ->execute([$existingUser['id'], $hash, $ua ?: null, null, $ip ?: null, $exp]);
     $pdo->prepare('UPDATE users SET last_seen = NOW() WHERE id = ?')->execute([$existingUser['id']]);

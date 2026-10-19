@@ -4868,6 +4868,21 @@ $('profileModal').onclick = e => { if (e.target === $('profileModal')) closeProf
 
 function logout() {
   clearInterval(poll);
+  // Revoke the server-side session before clearing the local token (best-effort on network loss).
+  const tokenToRevoke = token;
+  if (tokenToRevoke) {
+    fetch(API + '?ts=' + Date.now(), {
+      method: 'POST',
+      cache: 'no-store',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + tokenToRevoke
+      },
+      body: JSON.stringify({ action: 'logout' }),
+      keepalive: true
+    }).catch(() => {});
+  }
   // حذف فقط حساب فعلی از لیست
   accounts = accounts.filter(a => a.token !== token);
   localStorage.setItem('mouj_accounts', JSON.stringify(accounts));
