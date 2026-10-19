@@ -5,7 +5,7 @@ require_once __DIR__.'/config.php';
 if($_SERVER['REQUEST_METHOD']!=='POST') json_out(['ok'=>false,'error'=>'method_not_allowed'],405);
 $token=trim((string)($_POST['verified_token']??''));
 $first=trim((string)($_POST['first_name']??'')); $last=trim((string)($_POST['last_name']??'')); $username=strtolower(trim((string)($_POST['username']??'')));
-if(!preg_match('/^[a-zA-Z0-9_]{3,32}$/',$username) || $first==='') json_out(['ok'=>false,'error'=>'invalid_input'],422);
+if(!preg_match('/^[a-zA-Z0-9_]{3,32}$/',$username) || $first==='' || mb_strlen($first)>64 || mb_strlen($last)>64) json_out(['ok'=>false,'error'=>'invalid_input'],422);
 if(!preg_match('/^[a-zA-Z0-9_]{3,32}$/',$username)) json_out(['ok'=>false,'error'=>'invalid_username'],422);
 $st=db()->prepare('SELECT phone FROM verified_sessions WHERE token=? AND expires_at>NOW() LIMIT 1'); $st->execute([$token]); $v=$st->fetch();
 if(!$v) json_out(['ok'=>false,'error'=>'invalid_verified_token'],401); $phone=$v['phone'];
@@ -26,7 +26,7 @@ try{
    $sql='UPDATE users SET username=?,first_name=?,last_name=?,last_seen=NOW()'.($avatar?',avatar_path=?':'').' WHERE id=?'; $args=[$username,$first,$last]; if($avatar)$args[]=$avatar; $args[]=$u['id']; $pdo->prepare($sql)->execute($args); $uid=(int)$u['id'];
  } else { $sql='INSERT INTO users(phone,username,first_name,last_name,avatar_path,last_seen) VALUES(?,?,?,?,?,NOW())';$pdo->prepare($sql)->execute([$phone,$username,$first,$last,$avatar]);$uid=(int)$pdo->lastInsertId(); }
  $session=bin2hex(random_bytes(32)); $hash=hash('sha256',$session); $exp=(new DateTimeImmutable('+'.SESSION_DAYS.' days'))->format('Y-m-d H:i:s');
- $pdo->prepare('DELETE FROM auth_sessions WHERE expires_at<NOW()')->execute(); $ua=substr((string)($_SERVER['HTTP_USER_AGENT']??''),0,500); $ip=substr((string)($_SERVER['HTTP_X_FORWARDED_FOR']??$_SERVER['REMOTE_ADDR']??''),0,45); if(str_contains($ip,','))$ip=trim(explode(',',$ip)[0]); $pdo->prepare('INSERT INTO auth_sessions(user_id,token_hash,user_agent,device_label,ip,expires_at) VALUES(?,?,?,?,?,?)')->execute([$uid,$hash,$ua?:null,null,$ip?:null,$exp]);
+ $pdo->prepare('DELETE FROM auth_sessions WHERE expires_at<NOW()')->execute(); $ua=substr((string)($_SERVER['HTTP_USER_AGENT']??''),0,500); $ip=substr((string)($_SERVER['REMOTE_ADDR']??''),0,45); $pdo->prepare('INSERT INTO auth_sessions(user_id,token_hash,user_agent,device_label,ip,expires_at) VALUES(?,?,?,?,?,?)')->execute([$uid,$hash,$ua?:null,null,$ip?:null,$exp]);
  $pdo->prepare('DELETE FROM verified_sessions WHERE token=?')->execute([$token]); $pdo->commit();
  $q=$pdo->prepare('SELECT id,phone,username,first_name,last_name,avatar_path,last_seen FROM users WHERE id=?');$q->execute([$uid]);$user=$q->fetch();$user['avatar_path']=absolute_url($user['avatar_path']);
  json_out(['ok'=>true,'session_token'=>$session,'user'=>$user]);
