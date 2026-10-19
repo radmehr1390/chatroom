@@ -269,7 +269,27 @@ if ($action === 'me') {
 if ($action === 'logout') {
     $t = trim((string)($_SERVER['HTTP_AUTHORIZATION'] ?? ''));
     $t = preg_replace('/^Bearer\s+/i', '', $t);
-    if ($t) db()->prepare('DELETE FROM auth_sessions WHERE token_hash = ?')->execute([hash('sha256', $t)]);
+
+    // Support both Bearer-token clients and cookie-based sessions.
+    if ($t === '') {
+        $t = trim((string)($_COOKIE['mouj_session'] ?? ''));
+    }
+
+    if ($t !== '') {
+        db()->prepare('DELETE FROM auth_sessions WHERE token_hash = ?')
+            ->execute([hash('sha256', $t)]);
+    }
+
+    if (isset($_COOKIE['mouj_session'])) {
+        setcookie('mouj_session', '', [
+            'expires' => time() - 3600,
+            'path' => '/',
+            'secure' => true,
+            'httponly' => true,
+            'samesite' => 'Lax',
+        ]);
+    }
+
     json_out(['ok' => true]);
 }
 
@@ -415,14 +435,29 @@ if ($action === 'add_contact') {
 if ($action === 'user_profile') {
     $id = (int)($in['user_id'] ?? 0);
     if ($id < 1) json_out(['ok' => false, 'error' => 'invalid_user'], 422);
-    $st = db()->prepare('SELECT id, phone, username, first_name, last_name, avatar_path, last_seen, created_at FROM users WHERE id = ?');
+
+    $st = db()->prepare(
+        'SELECT id, phone, username, first_name, last_name, avatar_path,
+                last_seen, created_at, deleted_at
+         FROM users WHERE id = ? LIMIT 1'
+    );
     $st->execute([$id]);
     $row = $st->fetch();
     if (!$row) json_out(['ok' => false, 'error' => 'user_not_found'], 404);
-    // شماره فقط اگر خود کاربر باشه یا در مخاطبین باشه نمایش داده می‌شه — فعلاً ساده: همیشه برای پروفایل کامل
-    json_out(['ok' => true, 'user' => user_json($row, false)]);
-}
 
+    // Phone numbers are private by default: only the owner or a saved contact can see one.
+    $canSeePhone = ((int)$row['id'] === $uid);
+    if (!$canSeePhone) {
+        $contact = db()->prepare(
+            'SELECT 1 FROM contacts
+             WHERE user_id = ? AND contact_user_id = ? LIMIT 1'
+        );
+        $contact->execute([$uid, $id]);
+        $canSeePhone = (bool)$contact->fetchColumn();
+    }
+
+    json_out(['ok' => true, 'user' => user_json($row, !$canSeePhone)]);
+}
 
 
 if ($action === 'peek_user') {
@@ -462,7 +497,20 @@ if ($action === 'peek_user') {
             ];
         }
     }
-    json_out(['ok'=>true,'user'=>user_json($ou,false),'conversation_id'=>$conv?(int)$conv['id']:null,'messages'=>$messages]);
+    // A private conversation alone does not grant access to a phone number.
+    $contact = db()->prepare(
+        'SELECT 1 FROM contacts
+         WHERE user_id = ? AND contact_user_id = ? LIMIT 1'
+    );
+    $contact->execute([$uid, $other]);
+    $canSeePhone = (bool)$contact->fetchColumn();
+
+    json_out([
+        'ok' => true,
+        'user' => user_json($ou, !$canSeePhone),
+        'conversation_id' => $conv ? (int)$conv['id'] : null,
+        'messages' => $messages
+    ]);
 }
 
 if ($action === 'chats') {
