@@ -1,0 +1,22 @@
+# امنیت فایل‌های مخفی و پیکربندی
+Options -Indexes
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule (^|/)\. - [F,L]
+</IfModule>
+
+<FilesMatch "(?i)(^\.env|\.log$|\.sql$|\.bak$|\.backup$|\.old$|\.orig$|\.ini$|\.ya?ml$|\.dist$|composer\.(json|lock)$|package(-lock)?\.json$)">
+    Require all denied
+</FilesMatch>
+
+<FilesMatch "(?i)^(config|db|schema|migrate|wipe_all_data|run_migrate_.*)\.php$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+</FilesMatch>
+
+# php -- BEGIN cPanel-generated handler, do not edit
+<IfModule mime_module>
+  AddHandler application/x-httpd-alt-php83___lsphp .php .php8 .phtml
+</IfModule>
+# php -- END cPanel-generated handler
