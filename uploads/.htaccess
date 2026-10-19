@@ -1,0 +1,17 @@
+# Uploaded media must never be interpreted as executable PHP.
+Options -Indexes
+<IfModule mod_php.c>
+  php_flag engine off
+</IfModule>
+<IfModule mod_php8.c>
+  php_flag engine off
+</IfModule>
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule \.(?i:php[0-9]?|phtml|phar|cgi|pl|py|sh|asp|aspx|jsp)$ - [F,L,NC]
+</IfModule>
+<FilesMatch "(?i)\.(php[0-9]?|phtml|phar|cgi|pl|py|sh|asp|aspx|jsp)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+</FilesMatch>
