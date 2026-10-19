@@ -38,7 +38,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          ! grep -nE "'detail'[[:space:]]*=>[[:space:]]*\\\$e[0-9]?->getMessage\\(" api.php
+          ! grep -n "'detail'" api.php
           grep -q "A matching phone number alone must not reveal" api.php
           grep -q "Revoke the server-side session" mouj-messenger.html
           grep -q "Require all denied" uploads/.htaccess
