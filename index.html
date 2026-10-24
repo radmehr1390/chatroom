@@ -1209,6 +1209,63 @@ body {
   #appRoot.app { width:100% !important; }
 }
 </style>
+<style id="mouj-emergency-height-fix">
+html, body {
+  width:100% !important;
+  height:100% !important;
+  min-height:100% !important;
+  margin:0 !important;
+  padding:0 !important;
+  overflow:hidden !important;
+}
+@supports (height:100dvh) {
+  html, body { height:100dvh !important; min-height:100dvh !important; }
+}
+body {
+  position:fixed !important;
+  inset:0 !important;
+  display:block !important;
+}
+#appRoot.app {
+  position:fixed !important;
+  inset:0 !important;
+  width:100% !important;
+  height:100% !important;
+  min-height:100% !important;
+  max-height:none !important;
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+  border-radius:0 !important;
+  display:flex !important;
+  flex-direction:column !important;
+  overflow:hidden !important;
+  transform:none !important;
+}
+@supports (height:100dvh) {
+  #appRoot.app { height:100dvh !important; min-height:100dvh !important; }
+}
+#appRoot > .screen.on {
+  position:absolute !important;
+  inset:0 !important;
+  width:100% !important;
+  height:100% !important;
+  min-height:0 !important;
+  max-height:none !important;
+  display:flex !important;
+  flex-direction:column !important;
+}
+body.auth-mode #appRoot.app { width:100% !important; max-width:none !important; }
+body.auth-mode #appRoot > #phone.screen.on,
+body.auth-mode #appRoot > #otp.screen.on,
+body.auth-mode #appRoot > #profile.screen.on {
+  position:absolute !important;
+  inset:0 !important;
+  width:100% !important;
+  height:100% !important;
+  min-height:0 !important;
+}
+</style>
 </head>
 <body>
 <div class="bg"><i class="blob b1"></i><i class="blob b2"></i></div>
