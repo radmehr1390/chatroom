@@ -1,4 +1,5 @@
-﻿
+PS D:\Mouj> Get-Content "D:\Mouj\app\src\main\java\ir\mouj\MainActivity.kt"
+
 package ir.mouj
 
 import android.Manifest
@@ -43,7 +44,7 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -58,104 +59,13 @@ import com.google.firebase.messaging.FirebaseMessaging
 import org.json.JSONObject
 
 class MainActivity : ComponentActivity() {
-    private fun collectLayoutDiagnostics(view: WebView) {
-        val script = """
-        (function() {
-            const result = {
-                url: location.href,
-                readyState: document.readyState,
-                viewport: {
-                    width: innerWidth,
-                    height: innerHeight
-                },
-                bodyClass: document.body
-                    ? document.body.className
-                    : null,
-                body: document.body ? {
-                    height: document.body.getBoundingClientRect().height,
-                    cssHeight: getComputedStyle(document.body).height,
-                    display: getComputedStyle(document.body).display,
-                    position: getComputedStyle(document.body).position
-                } : null,
-                elements: ['appRoot', 'phone', 'otp', 'profile'].map(function(id) {
-                    const e = document.getElementById(id);
-
-                    if (!e) {
-                        return { id: id, missing: true };
-                    }
-
-                    const s = getComputedStyle(e);
-                    const r = e.getBoundingClientRect();
-
-                    return {
-                        id: id,
-                        height: r.height,
-                        width: r.width,
-                        cssHeight: s.height,
-                        display: s.display,
-                        position: s.position,
-                        visibility: s.visibility,
-                        className: e.className,
-                        inlineStyle: e.getAttribute('style')
-                    };
-                }),
-                heightRules: []
-            };
-
-            try {
-                for (const sheet of document.styleSheets) {
-                    let rules;
-
-                    try {
-                        rules = sheet.cssRules;
-                    } catch (e) {
-                        continue;
-                    }
-
-                    for (const rule of rules) {
-                        if (!rule.selectorText || !rule.style) continue;
-
-                        if (
-                            rule.selectorText.includes('body') ||
-                            rule.selectorText.includes('#appRoot')
-                        ) {
-                            const height =
-                                rule.style.getPropertyValue('height');
-
-                            const important =
-                                rule.style.getPropertyPriority('height');
-
-                            if (height) {
-                                result.heightRules.push({
-                                    selector: rule.selectorText,
-                                    height: height,
-                                    important: important
-                                });
-                            }
-                        }
-                    }
-                }
-            } catch (e) {
-                result.heightRulesError = String(e);
-            }
-
-            return JSON.stringify(result);
-        })();
-    """.trimIndent()
-
-        view.evaluateJavascript(script) { result ->
-            android.util.Log.i(
-                "MoujLayoutCheck",
-                result ?: "No diagnostic result"
-            )
-        }
-    }
 
     companion object {
         private const val HOME_URL =
             "https://chat.radmehrweb.ir/mouj-messenger.html"
 
         private const val SITE_HOST = "chat.radmehrweb.ir"
+
         private const val DOWNLOAD_CHANNEL_ID = "mouj_downloads"
         private const val DOWNLOAD_CHANNEL_NAME = "دانلودهای موج"
 
@@ -208,9 +118,9 @@ class MainActivity : ComponentActivity() {
             pendingWebPermission = null
 
             if (request != null) {
-                val granted = results.values.all { it }
+                val allGranted = results.values.all { it }
 
-                if (granted) {
+                if (allGranted) {
                     request.grant(request.resources)
                 } else {
                     request.deny()
@@ -222,7 +132,6 @@ class MainActivity : ComponentActivity() {
             .addOnSuccessListener { token ->
                 firebaseToken = token
                 Log.i(TAG_PAGE, "FCM token received")
-
                 runOnUiThread {
                     injectFirebaseToken()
                 }
@@ -245,7 +154,7 @@ class MainActivity : ComponentActivity() {
                         )
                     }
 
-                androidx.compose.runtime.LaunchedEffect(Unit) {
+                LaunchedEffect(Unit) {
                     if (
                         Build.VERSION.SDK_INT >= 33 &&
                         ContextCompat.checkSelfPermission(
@@ -269,7 +178,7 @@ class MainActivity : ComponentActivity() {
 
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    color = androidx.compose.ui.graphics.Color.White
                 ) {
                     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -333,12 +242,6 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                 }
-
-                DisposableEffect(Unit) {
-                    onDispose {
-                        // WebView is destroyed in onDestroy().
-                    }
-                }
             }
         }
     }
@@ -396,7 +299,8 @@ class MainActivity : ComponentActivity() {
 
                     Log.i(
                         TAG_PAGE,
-                        "WEBVIEW_SIZE width=${view.width} height=${view.height} " +
+                        "WEBVIEW_SIZE width=${view.width} " +
+                                "height=${view.height} " +
                                 "measuredWidth=${view.measuredWidth} " +
                                 "measuredHeight=${view.measuredHeight}"
                     )
@@ -434,7 +338,11 @@ class MainActivity : ComponentActivity() {
                     request: WebResourceRequest,
                     errorResponse: android.webkit.WebResourceResponse
                 ) {
-                    super.onReceivedHttpError(view, request, errorResponse)
+                    super.onReceivedHttpError(
+                        view,
+                        request,
+                        errorResponse
+                    )
 
                     Log.e(
                         TAG_PAGE,
@@ -452,10 +360,7 @@ class MainActivity : ComponentActivity() {
                     val uri = request.url
                     val host = uri.host.orEmpty()
 
-                    if (
-                        uri.scheme == "http" ||
-                        uri.scheme == "https"
-                    ) {
+                    if (uri.scheme == "http" || uri.scheme == "https") {
                         if (
                             host == SITE_HOST ||
                             host.endsWith(".$SITE_HOST")
@@ -561,6 +466,7 @@ class MainActivity : ComponentActivity() {
                     origin: String,
                     callback: GeolocationPermissions.Callback
                 ) {
+                    // دسترسی موقعیت مکانی به‌صورت پیش‌فرض رد می‌شود.
                     callback.invoke(origin, false, false)
                 }
 
@@ -574,7 +480,8 @@ class MainActivity : ComponentActivity() {
                 }
             }
 
-            setDownloadListener { url, userAgent, contentDisposition, mimeType, _ ->
+            setDownloadListener {
+                    url, userAgent, contentDisposition, mimeType, _ ->
                 downloadFile(
                     url = url,
                     userAgent = userAgent,
@@ -586,13 +493,14 @@ class MainActivity : ComponentActivity() {
     }
 
     /**
-     * Reads the page layout only. It does not modify CSS or page elements.
+     * گزارش وضعیت اندازه صفحه و عناصر اصلی برای بررسی صفحه سفید.
+     * این تابع فقط اطلاعات می‌خواند و CSS سایت را تغییر نمی‌دهد.
      */
     private fun collectLayoutDiagnostics(view: WebView) {
-        view.evaluateJavascript(
-            """
+        val script = """
             (function() {
               const ids = ['appRoot', 'phone', 'otp', 'profile'];
+
               const result = {
                 url: location.href,
                 readyState: document.readyState,
@@ -600,7 +508,9 @@ class MainActivity : ComponentActivity() {
                   width: innerWidth,
                   height: innerHeight
                 },
-                bodyClass: document.body ? document.body.className : null,
+                bodyClass: document.body
+                  ? document.body.className
+                  : null,
                 body: document.body ? {
                   height: document.body.getBoundingClientRect().height,
                   cssHeight: getComputedStyle(document.body).height,
@@ -609,9 +519,14 @@ class MainActivity : ComponentActivity() {
                 } : null,
                 elements: ids.map(function(id) {
                   const e = document.getElementById(id);
-                  if (!e) return {id: id, missing: true};
+
+                  if (!e) {
+                    return {id: id, missing: true};
+                  }
+
                   const s = getComputedStyle(e);
                   const r = e.getBoundingClientRect();
+
                   return {
                     id: id,
                     height: r.height,
@@ -625,11 +540,13 @@ class MainActivity : ComponentActivity() {
                   };
                 })
               };
+
               return JSON.stringify(result);
             })();
-            """.trimIndent()
-        ) { result ->
-            Log.i(TAG_LAYOUT, result ?: "null")
+        """.trimIndent()
+
+        view.evaluateJavascript(script) { result ->
+            Log.i(TAG_LAYOUT, result ?: "No diagnostic result")
         }
     }
 
@@ -645,7 +562,9 @@ class MainActivity : ComponentActivity() {
         Log.i(TAG_PAGE, "Firebase token injected into page")
     }
 
-    private fun handleWebPermissionRequest(request: PermissionRequest) {
+    private fun handleWebPermissionRequest(
+        request: PermissionRequest
+    ) {
         val requestedResources = request.resources.toList()
         val androidPermissions = mutableListOf<String>()
 
@@ -670,10 +589,10 @@ class MainActivity : ComponentActivity() {
             return
         }
 
-        val missingPermissions = androidPermissions.filter {
+        val missingPermissions = androidPermissions.filter { permission ->
             ContextCompat.checkSelfPermission(
                 this,
-                it
+                permission
             ) != PackageManager.PERMISSION_GRANTED
         }
 
@@ -682,7 +601,9 @@ class MainActivity : ComponentActivity() {
         } else {
             pendingWebPermission?.deny()
             pendingWebPermission = request
-            mediaPermissionLauncher.launch(missingPermissions.toTypedArray())
+            mediaPermissionLauncher.launch(
+                missingPermissions.toTypedArray()
+            )
         }
     }
 
@@ -702,6 +623,7 @@ class MainActivity : ComponentActivity() {
                     "این نوع لینک دانلود مستقیماً پشتیبانی نمی‌شود.",
                     Toast.LENGTH_LONG
                 ).show()
+
                 Log.w(TAG_PAGE, "Unsupported download URL: $url")
                 return
             }
@@ -716,7 +638,8 @@ class MainActivity : ComponentActivity() {
                 setTitle(fileName)
                 setDescription("در حال دانلود از موج")
                 setNotificationVisibility(
-                    DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED
+                    DownloadManager.Request
+                        .VISIBILITY_VISIBLE_NOTIFY_COMPLETED
                 )
                 setDestinationInExternalPublicDir(
                     Environment.DIRECTORY_DOWNLOADS,
@@ -729,7 +652,9 @@ class MainActivity : ComponentActivity() {
                     addRequestHeader("User-Agent", userAgent)
                 }
 
-                val cookies = CookieManager.getInstance().getCookie(url)
+                val cookies =
+                    CookieManager.getInstance().getCookie(url)
+
                 if (!cookies.isNullOrBlank()) {
                     addRequestHeader("Cookie", cookies)
                 }
@@ -755,7 +680,8 @@ class MainActivity : ComponentActivity() {
 
             Toast.makeText(
                 this,
-                "دانلود انجام نشد: ${error.localizedMessage ?: "خطای ناشناخته"}",
+                "دانلود انجام نشد: " +
+                        (error.localizedMessage ?: "خطای ناشناخته"),
                 Toast.LENGTH_LONG
             ).show()
         }
@@ -787,7 +713,6 @@ class MainActivity : ComponentActivity() {
     override fun onPause() {
         webView?.onPause()
         super.onPause()
-        webView?.onPause()
     }
 
     override fun onDestroy() {
@@ -808,3 +733,6 @@ class MainActivity : ComponentActivity() {
         super.onDestroy()
     }
 }
+
+
+PS D:\Mouj> 
