@@ -1,126 +1,373 @@
-PS D:\Mouj> $file = "$env:USERPROFILE\Desktop\mouj-debug.html"
-PS D:\Mouj> 
-PS D:\Mouj> Select-String -Path $file -Pattern `
->>   'height\s*:\s*0(px)?\s*!important|body\.style|appRoot\.style|setProperty\(["'']height|removeProperty\(["'']height|style\.height|classList\.(add|remove|toggle).*auth-mode|auth-mode.*classList' `
->>   -Context 2,3
 
-  C:\Users\404pc\Desktop\mouj-debug.html:871:  /* Search/pin/edit buttons are compact so Safari never pushes them outside the header. */
-  C:\Users\404pc\Desktop\mouj-debug.html:872:  .chathead #chatSearchBtn,.chathead #chatPinBtn,.chathead #chatEditBtn{width:38px!important;height:38px!important;font-size:15px!important;flex:0 0 38px!important}
-> C:\Users\404pc\Desktop\mouj-debug.html:873:  .messages{min-height:0!important;padding-bottom:12px!important}
-  C:\Users\404pc\Desktop\mouj-debug.html:874:  .composer{flex:none!important;padding-bottom:max(8px,env(safe-area-inset-bottom,0px))!important}
-  C:\Users\404pc\Desktop\mouj-debug.html:875:  .nav{bottom:max(8px,env(safe-area-inset-bottom,0px))!important}
-  C:\Users\404pc\Desktop\mouj-debug.html:876:}
-  C:\Users\404pc\Desktop\mouj-debug.html:937:  .app.desktop-split #chat.screen{min-width:0;}
-  C:\Users\404pc\Desktop\mouj-debug.html:938:  .chathead{flex:none!important;}
-> C:\Users\404pc\Desktop\mouj-debug.html:939:  .messages{min-height:0!important;}
-  C:\Users\404pc\Desktop\mouj-debug.html:940:  .composer{flex:none!important;}
-  C:\Users\404pc\Desktop\mouj-debug.html:941:}
-  C:\Users\404pc\Desktop\mouj-debug.html:942:
-  C:\Users\404pc\Desktop\mouj-debug.html:986:  .messages{
-  C:\Users\404pc\Desktop\mouj-debug.html:987:    flex:1 1 auto!important;
-> C:\Users\404pc\Desktop\mouj-debug.html:988:    min-height:0!important;
-  C:\Users\404pc\Desktop\mouj-debug.html:989:    overflow:auto!important;
-  C:\Users\404pc\Desktop\mouj-debug.html:990:  }
-  C:\Users\404pc\Desktop\mouj-debug.html:991:  .chathead{flex:0 0 76px!important;}
-  C:\Users\404pc\Desktop\mouj-debug.html:994:
-  C:\Users\404pc\Desktop\mouj-debug.html:995:/* ===== Final chat scroll + Telegram-like light wallpaper ===== */
-> C:\Users\404pc\Desktop\mouj-debug.html:996:.chat{min-height:0!important;min-width:0!important;overflow:hidden!important;display:flex!important;flex-direction:column!important;}
-  C:\Users\404pc\Desktop\mouj-debug.html:997:.chat .messages{
-  C:\Users\404pc\Desktop\mouj-debug.html:998:  flex:1 1 0%!important;
-> C:\Users\404pc\Desktop\mouj-debug.html:999:  height:0!important;
-> C:\Users\404pc\Desktop\mouj-debug.html:1000:  min-height:0!important;
-  C:\Users\404pc\Desktop\mouj-debug.html:1001:  min-width:0!important;
-  C:\Users\404pc\Desktop\mouj-debug.html:1002:  overflow-y:scroll!important;
-  C:\Users\404pc\Desktop\mouj-debug.html:1003:  overflow-x:hidden!important;
+  C:\Users\404pc\Desktop\mouj-debug.html:22:}
+  C:\Users\404pc\Desktop\mouj-debug.html:23:*{box-sizing:border-box}
+> C:\Users\404pc\Desktop\mouj-debug.html:24:html,body{margin:0;height:100%;font-family:Vazirmatn,sans-serif;color:var(--text)}
+> C:\Users\404pc\Desktop\mouj-debug.html:25:body{background:var(--bg);display:grid;place-items:center;overflow:hidden}
+  C:\Users\404pc\Desktop\mouj-debug.html:26:.bg{position:fixed;inset:0;background:radial-gradient(80% 70% at 90% 5%,#241951,transparent),radial-gradient(70% 70% at 5% 95%,#12343c,transparent),var(--bg)}
+  C:\Users\404pc\Desktop\mouj-debug.html:27:.blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.35}
+  C:\Users\404pc\Desktop\mouj-debug.html:28:.b1{width:400px;height:400px;background:#7c6cf6;right:-120px;top:-100px}
+  C:\Users\404pc\Desktop\mouj-debug.html:29:.b2{width:350px;height:350px;background:#33d9c9;left:-120px;bottom:-100px}
+  C:\Users\404pc\Desktop\mouj-debug.html:30:.app{position:relative;width:440px;height:min(920px,96vh);overflow:hidden;border:1px solid var(--line);border-radius:42px;background:rgba(12,8,30,.72);backdrop-filter:blur(24px);box-shadow:0 30px 
+80px #0008}
+  C:\Users\404pc\Desktop\mouj-debug.html:31:.screen{position:absolute;inset:0;display:none;flex-direction:column}
+  C:\Users\404pc\Desktop\mouj-debug.html:32:/* Auth mode: on desktop/mobile login must occupy the whole app with no chat underneath. */
+> C:\Users\404pc\Desktop\mouj-debug.html:33:body.auth-mode .app > #home,
+> C:\Users\404pc\Desktop\mouj-debug.html:34:body.auth-mode .app > #chat,
+> C:\Users\404pc\Desktop\mouj-debug.html:35:body.auth-mode .app > .desktop-empty { display:none !important; }
+> C:\Users\404pc\Desktop\mouj-debug.html:36:body.auth-mode .app { width:min(560px,calc(100vw - 36px)) !important; max-width:560px !important; }
+> C:\Users\404pc\Desktop\mouj-debug.html:37:body.auth-mode #phone.screen.on,
+> C:\Users\404pc\Desktop\mouj-debug.html:38:body.auth-mode #otp.screen.on,
+> C:\Users\404pc\Desktop\mouj-debug.html:39:body.auth-mode #profile.screen.on { position:relative !important; inset:auto !important; width:100% !important; height:100% !important; display:flex !important; }
+> C:\Users\404pc\Desktop\mouj-debug.html:40:@media(max-width:520px){ body.auth-mode .app{width:100% !important;max-width:none !important;} }
+  C:\Users\404pc\Desktop\mouj-debug.html:41:
+  C:\Users\404pc\Desktop\mouj-debug.html:42:.screen.on{display:flex}
+  C:\Users\404pc\Desktop\mouj-debug.html:43:.desktop-empty{display:none;flex:1;align-items:center;justify-content:center;flex-direction:column;gap:14px;color:var(--dim);background:rgba(0,0,0,.12);border-right:1px solid var(--line)}
+  C:\Users\404pc\Desktop\mouj-debug.html:44:.desktop-empty .de-logo{width:88px;height:88px;border-radius:28px;display:grid;place-items:center;background:linear-gradient(135deg,var(--v),var(--c));font-size:40px;box-shadow:0 16px 40px 
+#7c6cf644}
+  C:\Users\404pc\Desktop\mouj-debug.html:45:.desktop-empty h2{margin:0;font-size:22px;font-weight:800;color:var(--text)}
+  C:\Users\404pc\Desktop\mouj-debug.html:169:.preview-screen{z-index:45;background:#0d0920}
+  C:\Users\404pc\Desktop\mouj-debug.html:170:.preview-head{height:86px;padding:15px 18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line);background:#15102acc;backdrop-filter:blur(18px)}
+> C:\Users\404pc\Desktop\mouj-debug.html:171:.preview-body{flex:1;overflow:auto;padding:18px 14px 100px}
+  C:\Users\404pc\Desktop\mouj-debug.html:172:.preview-info{text-align:center;padding:8px 0 20px}
+  C:\Users\404pc\Desktop\mouj-debug.html:173:.preview-info .av{width:82px;height:82px;margin:0 auto 10px}
+  C:\Users\404pc\Desktop\mouj-debug.html:174:.preview-title{font-size:21px;font-weight:800}
+  C:\Users\404pc\Desktop\mouj-debug.html:175:.preview-meta{color:var(--dim);font-size:12px;margin-top:5px}
+  C:\Users\404pc\Desktop\mouj-debug.html:176:.preview-desc{color:var(--dim);font-size:13px;line-height:1.9;margin:8px auto 0;max-width:340px}
+  C:\Users\404pc\Desktop\mouj-debug.html:293:
+  C:\Users\404pc\Desktop\mouj-debug.html:294:@media(max-width:500px){
+> C:\Users\404pc\Desktop\mouj-debug.html:295:  body{display:block}
+  C:\Users\404pc\Desktop\mouj-debug.html:296:  .app{width:100vw;height:100dvh;border:0;border-radius:0}
+  C:\Users\404pc\Desktop\mouj-debug.html:297:}
+  C:\Users\404pc\Desktop\mouj-debug.html:298:
+  C:\Users\404pc\Desktop\mouj-debug.html:299:/* ---- Responsive ---- */
+> C:\Users\404pc\Desktop\mouj-debug.html:300:html, body { -webkit-text-size-adjust: none; text-size-adjust: none; }
+  C:\Users\404pc\Desktop\mouj-debug.html:301:.app {
+  C:\Users\404pc\Desktop\mouj-debug.html:302:  width: min(440px, 100vw);
+  C:\Users\404pc\Desktop\mouj-debug.html:303:  height: min(920px, 100dvh, 100vh);
+  C:\Users\404pc\Desktop\mouj-debug.html:304:  border-radius: 42px;
+  C:\Users\404pc\Desktop\mouj-debug.html:305:}
+  C:\Users\404pc\Desktop\mouj-debug.html:315:
+  C:\Users\404pc\Desktop\mouj-debug.html:316:@media (max-width: 520px) {
+> C:\Users\404pc\Desktop\mouj-debug.html:317:  body { display: block; overflow: hidden; }
+  C:\Users\404pc\Desktop\mouj-debug.html:318:  .bg { display: none; }
+  C:\Users\404pc\Desktop\mouj-debug.html:319:  .app {
+  C:\Users\404pc\Desktop\mouj-debug.html:320:    width: 100%;
+  C:\Users\404pc\Desktop\mouj-debug.html:321:    height: 100%;
+  C:\Users\404pc\Desktop\mouj-debug.html:322:    height: 100dvh;
+  C:\Users\404pc\Desktop\mouj-debug.html:353:}
+  C:\Users\404pc\Desktop\mouj-debug.html:354:@media (min-width: 900px) {
+> C:\Users\404pc\Desktop\mouj-debug.html:355:  body {
+  C:\Users\404pc\Desktop\mouj-debug.html:356:    display: flex;
+  C:\Users\404pc\Desktop\mouj-debug.html:357:    align-items: center;
+  C:\Users\404pc\Desktop\mouj-debug.html:358:    justify-content: center;
+  C:\Users\404pc\Desktop\mouj-debug.html:359:    padding: 18px;
+  C:\Users\404pc\Desktop\mouj-debug.html:360:    overflow: hidden;
+  C:\Users\404pc\Desktop\mouj-debug.html:410:  }
+  C:\Users\404pc\Desktop\mouj-debug.html:411:  .app.desktop-ready #publicPreview.screen,
+> C:\Users\404pc\Desktop\mouj-debug.html:412:  .app.desktop-ready #phone.screen,
+  C:\Users\404pc\Desktop\mouj-debug.html:413:  .app.desktop-ready #otp.screen,
+  C:\Users\404pc\Desktop\mouj-debug.html:414:  .app.desktop-ready #profile.screen {
+  C:\Users\404pc\Desktop\mouj-debug.html:415:    position: absolute;
+  C:\Users\404pc\Desktop\mouj-debug.html:416:    inset: 0;
+  C:\Users\404pc\Desktop\mouj-debug.html:417:    z-index: 30;
+  C:\Users\404pc\Desktop\mouj-debug.html:433:.reply-bar{display:none;align-items:center;gap:10px;padding:8px 12px;background:#1a1430;border-top:1px solid var(--line);font-size:12px}
+  C:\Users\404pc\Desktop\mouj-debug.html:434:.reply-bar.on{display:flex}
+> C:\Users\404pc\Desktop\mouj-debug.html:435:.reply-bar .rb-body{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--dim)}
+  C:\Users\404pc\Desktop\mouj-debug.html:436:.reply-bar button{border:0;background:none;color:var(--text);font-size:18px;cursor:pointer}
+  C:\Users\404pc\Desktop\mouj-debug.html:437:.ctx-menu{position:absolute;z-index:50;background:#1c1633;border:1px solid var(--line);border-radius:16px;padding:6px;min-width:160px;box-shadow:0 12px 40px #0008;display:none}
+  C:\Users\404pc\Desktop\mouj-debug.html:438:.ctx-menu.on{display:block}
+  C:\Users\404pc\Desktop\mouj-debug.html:439:.ctx-menu button{display:block;width:100%;text-align:right;border:0;background:none;color:var(--text);padding:10px 14px;border-radius:12px;font:600 13px Vazirmatn;cursor:pointer}
+  C:\Users\404pc\Desktop\mouj-debug.html:440:.ctx-menu button:hover{background:var(--glass)}
+  C:\Users\404pc\Desktop\mouj-debug.html:501:
+  C:\Users\404pc\Desktop\mouj-debug.html:502:/* ===== Responsive / Accessibility-safe layout v12 ===== */
+> C:\Users\404pc\Desktop\mouj-debug.html:503:html{font-size:16px;-webkit-text-size-adjust:none;text-size-adjust:none;}
+  C:\Users\404pc\Desktop\mouj-debug.html:504:html,body,#appRoot{min-width:0;min-height:0;}
+> C:\Users\404pc\Desktop\mouj-debug.html:505:body{width:100%;min-height:100dvh;}
+  C:\Users\404pc\Desktop\mouj-debug.html:506:.app,.screen{min-width:0;}
+  C:\Users\404pc\Desktop\mouj-debug.html:507:.messages,.list,.calls-list,.preview-body,.profile-wrap{overscroll-behavior:contain;scrollbar-width:thin;}
+  C:\Users\404pc\Desktop\mouj-debug.html:508:.row,.line,.mid,.call-card,.call-main,.composer,.chathead{min-width:0;}
+  C:\Users\404pc\Desktop\mouj-debug.html:509:.line{align-items:center;min-width:0;}
+  C:\Users\404pc\Desktop\mouj-debug.html:510:.line .name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  C:\Users\404pc\Desktop\mouj-debug.html:521:  text-size-adjust: 100% !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:522:}
+> C:\Users\404pc\Desktop\mouj-debug.html:523:html { font-size: 16px !important; }
+> C:\Users\404pc\Desktop\mouj-debug.html:524:body { min-width: 0; }
+  C:\Users\404pc\Desktop\mouj-debug.html:525:
+  C:\Users\404pc\Desktop\mouj-debug.html:526:/* Medium/large browser windows: don't collapse the app into a phone-sized 440px box. */
+  C:\Users\404pc\Desktop\mouj-debug.html:527:@media (min-width: 521px) and (max-width: 899px){
+> C:\Users\404pc\Desktop\mouj-debug.html:528:  body{padding:12px;}
+  C:\Users\404pc\Desktop\mouj-debug.html:529:  .app{width:100%!important;max-width:none!important;height:calc(100dvh - 24px)!important;}
+  C:\Users\404pc\Desktop\mouj-debug.html:530:}
+  C:\Users\404pc\Desktop\mouj-debug.html:531:
+  C:\Users\404pc\Desktop\mouj-debug.html:532:/* Desktop: use the available screen instead of a small phone-sized frame */
+  C:\Users\404pc\Desktop\mouj-debug.html:533:@media (min-width: 900px){
+> C:\Users\404pc\Desktop\mouj-debug.html:534:  body{padding:24px;}
+  C:\Users\404pc\Desktop\mouj-debug.html:535:  .app{
+  C:\Users\404pc\Desktop\mouj-debug.html:536:    width:min(1500px, calc(100vw - 48px));
+  C:\Users\404pc\Desktop\mouj-debug.html:537:    height:min(940px, calc(100vh - 48px));
+  C:\Users\404pc\Desktop\mouj-debug.html:538:    max-width:none;
+  C:\Users\404pc\Desktop\mouj-debug.html:539:  }
+  C:\Users\404pc\Desktop\mouj-debug.html:566:  --danger:#e54868;
+  C:\Users\404pc\Desktop\mouj-debug.html:567:}
+> C:\Users\404pc\Desktop\mouj-debug.html:568:html[data-theme="light"] body{background:var(--bg);}
+  C:\Users\404pc\Desktop\mouj-debug.html:569:html[data-theme="light"] .bg{background:radial-gradient(80% 70% at 90% 5%,#dfe6ff,transparent),radial-gradient(70% 70% at 5% 95%,#d9f7f2,transparent),var(--bg);}
+  C:\Users\404pc\Desktop\mouj-debug.html:570:html[data-theme="light"] .app{background:rgba(255,255,255,.82);box-shadow:0 30px 80px rgba(25,35,60,.16);}
+  C:\Users\404pc\Desktop\mouj-debug.html:571:html[data-theme="light"] .chat,html[data-theme="light"] .calls-screen{background:#f4f7fb;}
+  C:\Users\404pc\Desktop\mouj-debug.html:572:html[data-theme="light"] .chathead,html[data-theme="light"] .preview-head{background:rgba(255,255,255,.88);}
+  C:\Users\404pc\Desktop\mouj-debug.html:573:html[data-theme="light"] .nav{background:rgba(255,255,255,.88);}
+  C:\Users\404pc\Desktop\mouj-debug.html:596:#list .row .last .unread-badge{float:none;display:inline-flex;vertical-align:middle;margin-inline-start:6px;}
+  C:\Users\404pc\Desktop\mouj-debug.html:597:@media(max-width:520px){
+> C:\Users\404pc\Desktop\mouj-debug.html:598:  body{width:100%;height:100dvh;overflow:hidden;}
+  C:\Users\404pc\Desktop\mouj-debug.html:599:  .app{width:100vw!important;height:100dvh!important;max-width:none;max-height:none;border-radius:0;}
+  C:\Users\404pc\Desktop\mouj-debug.html:600:  .top{height:auto;min-height:64px;padding-top:max(12px,env(safe-area-inset-top));}
+  C:\Users\404pc\Desktop\mouj-debug.html:601:  .row{padding:10px;gap:10px;}
+  C:\Users\404pc\Desktop\mouj-debug.html:602:  .row .av{width:48px;height:48px;}
+  C:\Users\404pc\Desktop\mouj-debug.html:603:  .name{font-size:14px;}
+  C:\Users\404pc\Desktop\mouj-debug.html:851:<style id="mouj-safari-final-fix">
+  C:\Users\404pc\Desktop\mouj-debug.html:852:/* Stable Safari/web viewport: keep the whole messenger inside the visible viewport. */
+> C:\Users\404pc\Desktop\mouj-debug.html:853:html,body{width:100%;min-height:100%;overflow:hidden;-webkit-text-size-adjust:none;text-size-adjust:none}
+> C:\Users\404pc\Desktop\mouj-debug.html:854:body{overscroll-behavior:none}
+  C:\Users\404pc\Desktop\mouj-debug.html:855:.app{height:100dvh;max-height:100dvh}
+  C:\Users\404pc\Desktop\mouj-debug.html:856:@supports (height:100svh){.app{min-height:100svh}}
+  C:\Users\404pc\Desktop\mouj-debug.html:857:@media(max-width:899px){
+  C:\Users\404pc\Desktop\mouj-debug.html:858:  .app{width:100vw!important;height:100dvh!important;max-height:none!important;border-radius:0!important}
+  C:\Users\404pc\Desktop\mouj-debug.html:859:  .chathead{
+  C:\Users\404pc\Desktop\mouj-debug.html:917:/* Desktop/laptop: use the whole browser viewport instead of a phone-sized card. */
+  C:\Users\404pc\Desktop\mouj-debug.html:918:@media (min-width:900px){
+> C:\Users\404pc\Desktop\mouj-debug.html:919:  html,body{width:100%;height:100%;overflow:hidden;}
+> C:\Users\404pc\Desktop\mouj-debug.html:920:  body{padding:0!important;display:block!important;}
+  C:\Users\404pc\Desktop\mouj-debug.html:921:  .app{
+  C:\Users\404pc\Desktop\mouj-debug.html:922:    width:100vw!important;
+  C:\Users\404pc\Desktop\mouj-debug.html:923:    max-width:none!important;
+  C:\Users\404pc\Desktop\mouj-debug.html:924:    height:100vh!important;
+  C:\Users\404pc\Desktop\mouj-debug.html:925:    max-height:none!important;
+  C:\Users\404pc\Desktop\mouj-debug.html:951:/* Desktop layout inspired by the supplied reference: full viewport, fixed chat list on the right, wallpaper filling the conversation area. */
+  C:\Users\404pc\Desktop\mouj-debug.html:952:@media (min-width:900px){
+> C:\Users\404pc\Desktop\mouj-debug.html:953:  html,body{width:100%;height:100%;overflow:hidden;}
+> C:\Users\404pc\Desktop\mouj-debug.html:954:  body{display:block!important;padding:0!important;margin:0!important;}
+  C:\Users\404pc\Desktop\mouj-debug.html:955:  .app{
+  C:\Users\404pc\Desktop\mouj-debug.html:956:    position:fixed!important;
+  C:\Users\404pc\Desktop\mouj-debug.html:957:    inset:0!important;
+  C:\Users\404pc\Desktop\mouj-debug.html:958:    width:100vw!important;
+  C:\Users\404pc\Desktop\mouj-debug.html:959:    height:100dvh!important;
+  C:\Users\404pc\Desktop\mouj-debug.html:1142:
+  C:\Users\404pc\Desktop\mouj-debug.html:1143:<style id="mouj-v18-theme-conversation">
+> C:\Users\404pc\Desktop\mouj-debug.html:1144:html{--mouj-msg-size:14px;--mouj-msg-color:var(--text)}
+  C:\Users\404pc\Desktop\mouj-debug.html:1145:.conversationAppearance-detail-screen{position:fixed;inset:0;z-index:95;background:var(--bg);display:none;flex-direction:column}.conversationAppearance-detail-screen.on{display:flex}
+  C:\Users\404pc\Desktop\mouj-debug.html:1146:.bubble{font-size:var(--mouj-msg-size)!important;color:var(--mouj-msg-color)!important}
+  C:\Users\404pc\Desktop\mouj-debug.html:1147:.theme-option-selected{color:#1688ff!important;font-weight:800}.theme-preview-dot{width:12px;height:12px;border-radius:50%;display:inline-block;margin-inline-start:8px;border:1px solid 
+var(--line)}
+  C:\Users\404pc\Desktop\mouj-debug.html:1148:.wallpaper-preview{height:150px;border-radius:22px;margin:10px 12px 14px;background-size:cover;background-position:center;border:1px solid var(--line);box-shadow:inset 0 0 0 999px 
+rgba(0,0,0,.06)}
+  C:\Users\404pc\Desktop\mouj-debug.html:1149:.color-swatch{width:34px;height:34px;border-radius:50%;border:2px solid transparent;cursor:pointer;box-shadow:0 4px 14px 
+rgba(0,0,0,.12)}.color-swatch.active{border-color:var(--text);transform:scale(1.08)}
+  C:\Users\404pc\Desktop\mouj-debug.html:1157:html[data-theme="dark"] .settings-screen-head .settings-edit,html[data-theme="dark"] .settings-screen-head .settings-qr{background:rgba(255,255,255,.08)}
+  C:\Users\404pc\Desktop\mouj-debug.html:1158:.settings-profile-hero{text-align:center;padding:12px 20px 18px}.settings-profile-hero .avatar-box{width:118px;height:118px;margin:0 auto 14px}.settings-profile-hero 
+.sp-name{font-size:25px;font-weight:800}.settings-profile-hero .sp-meta{color:var(--dim);font-size:14px;margin-top:4px;direction:ltr}.settings-change-photo{display:flex;align-items:center;justify-content:center;width:calc(100% - 
+28px);margin:8px auto 16px;padding:15px;border:1px solid rgba(60,140,255,.15);border-radius:20px;background:rgba(40,150,255,.09);color:#1688ff;font-weight:700;cursor:pointer}.tg-card{margin:10px 
+14px;background:rgba(255,255,255,.82);border:1px solid rgba(120,130,150,.12);border-radius:26px;overflow:hidden;box-shadow:0 8px 28px rgba(40,50,80,.06)}
+> C:\Users\404pc\Desktop\mouj-debug.html:1159:html[data-theme="dark"] .tg-card{background:rgba(255,255,255,.06);border-color:var(--line);box-shadow:none}.tg-row{min-height:60px;padding:10px 
+16px;display:flex;align-items:center;gap:13px;cursor:pointer;border-bottom:1px solid 
+rgba(120,130,150,.12)}.tg-row:last-child{border-bottom:0}.tg-icon{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:21px;flex:none;background:rgba(80,150,255,.12)}.tg-row .tg-mid{flex:1;min-width:0}.tg-titl
+e{font-size:16px;font-weight:650}.tg-sub{font-size:12px;color:var(--dim);margin-top:3px}.tg-chevron{font-size:25px;color:#aab0bb}.tg-value{color:var(--dim);font-size:14px;margin-inline-start:auto}.tg-danger 
+.tg-title{color:var(--danger)}.settings-scroll{overflow:auto;flex:1;padding-bottom:110px}.settings-section-label{padding:12px 20px 4px;color:var(--dim);font-size:12px}.profile-detail-screen,.qr-detail-screen,.devices-detail-screen,.security
+-detail-screen{position:fixed;inset:0;z-index:90;background:var(--bg);display:none;flex-direction:column}.profile-detail-screen.on,.qr-detail-screen.on,.devices-detail-screen.on,.security-detail-screen.on{display:flex}.detail-head{min-heigh
+t:82px;height:auto;padding:calc(22px + env(safe-area-inset-top)) 16px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid 
+var(--line);background:rgba(255,255,255,.74);backdrop-filter:blur(20px)}html[data-theme="dark"] .detail-head{background:rgba(15,12,29,.82)}.detail-head 
+button{border:0;background:var(--glass);color:var(--text);border-radius:50%;width:44px;height:44px;font-size:23px;cursor:pointer}.detail-body{overflow:auto;flex:1;padding:18px 14px 40px}.qr-box{margin:20px 
+auto;padding:20px;background:#fff;border-radius:30px;width:min(88vw,380px);box-shadow:0 18px 60px rgba(0,0,0,.14);text-align:center}.qr-box 
+img{width:100%;height:auto;display:block;border-radius:12px}.qr-username{font-size:18px;font-weight:800;margin-top:14px;color:#222;direction:ltr}.device-empty{text-align:center;padding:70px 
+20px;color:var(--dim)}.device-card{display:flex;align-items:center;gap:14px;padding:15px 14px;border-radius:20px;background:var(--glass);border:1px solid 
+var(--line);margin-bottom:10px}.device-icon{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;background:rgba(60,150,255,.12);font-size:25px}.pin-input{width:180px;margin:15px 
+auto;display:block;text-align:center;letter-spacing:14px;font-size:28px;background:var(--glass);border:1px solid 
+var(--line);border-radius:18px;padding:13px;color:var(--text);outline:0}.draft-label{color:#e85b6f!important;font-weight:700}.chat-bottom-fab{position:absolute;right:16px;bottom:90px;width:46px;height:46px;border-radius:50%;border:1px 
+solid var(--line);background:rgba(255,255,255,.86);color:#3d65e8;box-shadow:0 10px 30px rgba(0,0,0,.18);z-index:12;display:none;place-items:center;font-size:22px;cursor:pointer;backdrop-filter:blur(14px)}html[data-theme="dark"] 
+.chat-bottom-fab{background:rgba(25,20,44,.9);color:#fff}.chat-bottom-fab.on{display:grid}
+  C:\Users\404pc\Desktop\mouj-debug.html:1160:@media(max-width:520px){.settings-screen-head{padding-top:max(18px,env(safe-area-inset-top))}.settings-profile-hero 
+.avatar-box{width:100px;height:100px}.tg-card{margin-inline:10px}.tg-row{min-height:54px;padding-block:8px}.chat-bottom-fab{right:12px;bottom:88px}}
+  C:\Users\404pc\Desktop\mouj-debug.html:1161:</style>
+  C:\Users\404pc\Desktop\mouj-debug.html:1162:
+  C:\Users\404pc\Desktop\mouj-debug.html:1163:<style id="mouj-final-android-webview-layout-repair">
+  C:\Users\404pc\Desktop\mouj-debug.html:1164:/* Final Android WebView layout repair: avoid fixed-position top+bottom+height conflicts. */
+> C:\Users\404pc\Desktop\mouj-debug.html:1165:html, html body {
+  C:\Users\404pc\Desktop\mouj-debug.html:1166:  display:block !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:1167:  width:100% !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:1168:  height:100% !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:1169:  min-height:100% !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:1170:  max-height:none !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:1174:}
+  C:\Users\404pc\Desktop\mouj-debug.html:1175:@supports (height:100dvh) {
+> C:\Users\404pc\Desktop\mouj-debug.html:1176:  html, html body { height:100dvh !important; min-height:100dvh !important; }
+  C:\Users\404pc\Desktop\mouj-debug.html:1177:}
+> C:\Users\404pc\Desktop\mouj-debug.html:1178:body {
+  C:\Users\404pc\Desktop\mouj-debug.html:1179:  position:relative !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:1180:  inset:auto !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:1181:  display:block !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:1182:}
+> C:\Users\404pc\Desktop\mouj-debug.html:1183:#appRoot.app {
+  C:\Users\404pc\Desktop\mouj-debug.html:1184:  position:absolute !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:1185:  inset:0 !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:1186:  display:flex !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:1187:  flex-direction:column !important;
   C:\Users\404pc\Desktop\mouj-debug.html:1188:  width:100% !important;
-  C:\Users\404pc\Desktop\mouj-debug.html:1189:  height:100% !important;
-> C:\Users\404pc\Desktop\mouj-debug.html:1190:  min-height:0 !important;
-  C:\Users\404pc\Desktop\mouj-debug.html:1191:  max-height:none !important;
-  C:\Users\404pc\Desktop\mouj-debug.html:1192:  margin:0 !important;
-  C:\Users\404pc\Desktop\mouj-debug.html:1193:  padding:0 !important;
-  C:\Users\404pc\Desktop\mouj-debug.html:1199:}
-  C:\Users\404pc\Desktop\mouj-debug.html:1200:#appRoot > .screen {
-> C:\Users\404pc\Desktop\mouj-debug.html:1201:  min-height:0 !important;
-  C:\Users\404pc\Desktop\mouj-debug.html:1202:}
-  C:\Users\404pc\Desktop\mouj-debug.html:1203:#appRoot > .screen.on {
-  C:\Users\404pc\Desktop\mouj-debug.html:1204:  height:100% !important;
-> C:\Users\404pc\Desktop\mouj-debug.html:1205:  min-height:0 !important;
-  C:\Users\404pc\Desktop\mouj-debug.html:1206:  max-height:100% !important;
   C:\Users\404pc\Desktop\mouj-debug.html:1207:}
   C:\Users\404pc\Desktop\mouj-debug.html:1208:@media(max-width:520px) {
+> C:\Users\404pc\Desktop\mouj-debug.html:1209:  #appRoot.app { width:100% !important; }
+  C:\Users\404pc\Desktop\mouj-debug.html:1210:}
+  C:\Users\404pc\Desktop\mouj-debug.html:1211:</style>
+  C:\Users\404pc\Desktop\mouj-debug.html:1212:</head>
+  C:\Users\404pc\Desktop\mouj-debug.html:1213:<body>
+  C:\Users\404pc\Desktop\mouj-debug.html:1214:<div class="bg"><i class="blob b1"></i><i class="blob b2"></i></div>
   C:\Users\404pc\Desktop\mouj-debug.html:1503:function show(id) {
   C:\Users\404pc\Desktop\mouj-debug.html:1504:  const app = $('appRoot');
 > C:\Users\404pc\Desktop\mouj-debug.html:1505:  if (document.body) document.body.classList.toggle('auth-mode', ['phone','otp','profile'].includes(id));
   C:\Users\404pc\Desktop\mouj-debug.html:1506:  const authScreens = ['phone', 'otp', 'profile'];
   C:\Users\404pc\Desktop\mouj-debug.html:1507:  const mainScreens = ['home', 'chat', 'publicPreview'];
   C:\Users\404pc\Desktop\mouj-debug.html:1508:  const desktop = isDesktop();
+  C:\Users\404pc\Desktop\mouj-debug.html:1509:
+  C:\Users\404pc\Desktop\mouj-debug.html:1510:  // Explicit state class prevents Home from remaining underneath Chat on mobile Safari/Android.
   C:\Users\404pc\Desktop\mouj-debug.html:2123:
   C:\Users\404pc\Desktop\mouj-debug.html:2124:function openHome() {
 > C:\Users\404pc\Desktop\mouj-debug.html:2125:  document.body.classList.remove('auth-mode');
   C:\Users\404pc\Desktop\mouj-debug.html:2126:  chatListSnapshot = new Map();
   C:\Users\404pc\Desktop\mouj-debug.html:2127:  chatListSnapshotReady = false;
   C:\Users\404pc\Desktop\mouj-debug.html:2128:  show('home');
+  C:\Users\404pc\Desktop\mouj-debug.html:2129:  if (isDesktop() && $('appRoot')) $('appRoot').classList.add('desktop-ready');
+  C:\Users\404pc\Desktop\mouj-debug.html:2130:  if (localStorage.getItem('mouj_pin_hash')) setTimeout(showAppLock,80);
   C:\Users\404pc\Desktop\mouj-debug.html:5108:// Auto login + restore contacts
   C:\Users\404pc\Desktop\mouj-debug.html:5109:(async () => {
 > C:\Users\404pc\Desktop\mouj-debug.html:5110:  document.body.classList.add('auth-mode');
   C:\Users\404pc\Desktop\mouj-debug.html:5111:  updateConnPill();
   C:\Users\404pc\Desktop\mouj-debug.html:5112:  // همگام‌سازی accounts با token فعلی
   C:\Users\404pc\Desktop\mouj-debug.html:5113:  if (token && !accounts.find(a => a.token === token)) {
+  C:\Users\404pc\Desktop\mouj-debug.html:5114:    // ممکن است از قبل باشد
+  C:\Users\404pc\Desktop\mouj-debug.html:5115:  }
   C:\Users\404pc\Desktop\mouj-debug.html:5120:      if (r.ok) {
   C:\Users\404pc\Desktop\mouj-debug.html:5121:        user = r.user;
 > C:\Users\404pc\Desktop\mouj-debug.html:5122:        document.body.classList.remove('auth-mode');
   C:\Users\404pc\Desktop\mouj-debug.html:5123:        saveCurrentAccount();
   C:\Users\404pc\Desktop\mouj-debug.html:5124:        openHome();
   C:\Users\404pc\Desktop\mouj-debug.html:5125:        if (phoneContacts.length) await matchStoredContacts();
-  C:\Users\404pc\Desktop\mouj-debug.html:5431:}
-  C:\Users\404pc\Desktop\mouj-debug.html:5432:#appRoot > .screen {
-> C:\Users\404pc\Desktop\mouj-debug.html:5433:  min-height:0 !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:5126:      } else {
+  C:\Users\404pc\Desktop\mouj-debug.html:5127:        // توکن نامعتبر — حذف از لیست
+  C:\Users\404pc\Desktop\mouj-debug.html:5338:<style id="mouj-responsive-fixes-2026-10-21">
+  C:\Users\404pc\Desktop\mouj-debug.html:5339:/* Responsive layout and settings/update-card fixes. Preserve existing app behavior. */
+> C:\Users\404pc\Desktop\mouj-debug.html:5340:html{min-height:100%;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+> C:\Users\404pc\Desktop\mouj-debug.html:5341:body{min-width:0;min-height:100%;overflow-x:hidden}
+  C:\Users\404pc\Desktop\mouj-debug.html:5342:button,input,textarea,select{font:inherit;max-width:100%}
+  C:\Users\404pc\Desktop\mouj-debug.html:5343:img,video,canvas,svg{max-width:100%}
+  C:\Users\404pc\Desktop\mouj-debug.html:5344:#appRoot,.app,.shell,.layout,.main,.page,.content,.settings,.settings-list{min-width:0;max-width:100%}
+  C:\Users\404pc\Desktop\mouj-debug.html:5345:.settings-card{min-width:0;overflow-wrap:anywhere}
+  C:\Users\404pc\Desktop\mouj-debug.html:5346:.settings-card .name,.settings-card .muted,.settings-card .last{overflow-wrap:anywhere}
+  C:\Users\404pc\Desktop\mouj-debug.html:5354:.row .mid{min-width:0;overflow-wrap:anywhere}
+  C:\Users\404pc\Desktop\mouj-debug.html:5355:@media(max-width:899px){
+> C:\Users\404pc\Desktop\mouj-debug.html:5356:  html,body{width:100%;min-height:100%;overflow-x:hidden}
+> C:\Users\404pc\Desktop\mouj-debug.html:5357:  body{overscroll-behavior-y:contain}
+  C:\Users\404pc\Desktop\mouj-debug.html:5358:  #appRoot,.app{width:100%;max-width:100%;min-height:100dvh}
+  C:\Users\404pc\Desktop\mouj-debug.html:5359:  .settings-card{margin-inline:0!important;padding:clamp(12px,3.6vw,18px)!important;border-radius:18px}
+  C:\Users\404pc\Desktop\mouj-debug.html:5360:  .settings-card .row{gap:10px}
+  C:\Users\404pc\Desktop\mouj-debug.html:5361:  .settings-card button{min-height:42px}
+  C:\Users\404pc\Desktop\mouj-debug.html:5362:  #updateActions{display:flex;gap:8px;flex-wrap:wrap}
+  C:\Users\404pc\Desktop\mouj-debug.html:5392:<style id="mouj-webview-emergency-layout-fix">
+  C:\Users\404pc\Desktop\mouj-debug.html:5393:/* Hard fix for Android WebView: the app shell must never collapse to zero height. */
+> C:\Users\404pc\Desktop\mouj-debug.html:5394:html {
+  C:\Users\404pc\Desktop\mouj-debug.html:5395:  display:block !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:5396:  width:100% !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:5397:  height:100% !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:5398:  min-height:100% !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:5399:  margin:0 !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:5401:  overflow:hidden !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:5402:}
+> C:\Users\404pc\Desktop\mouj-debug.html:5403:body {
+  C:\Users\404pc\Desktop\mouj-debug.html:5404:  display:block !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:5405:  position:fixed !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:5406:  top:0 !important; right:0 !important; bottom:0 !important; left:0 !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:5407:  width:100% !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:5408:  height:100vh !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:5414:  place-items:initial !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:5415:}
+> C:\Users\404pc\Desktop\mouj-debug.html:5416:#appRoot.app {
+  C:\Users\404pc\Desktop\mouj-debug.html:5417:  display:flex !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:5418:  position:fixed !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:5419:  top:0 !important; right:0 !important; bottom:0 !important; left:0 !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:5420:  width:100% !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:5421:  height:100vh !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:5433:  min-height:0 !important;
   C:\Users\404pc\Desktop\mouj-debug.html:5434:}
-  C:\Users\404pc\Desktop\mouj-debug.html:5435:#appRoot > #phone.screen.on,
+> C:\Users\404pc\Desktop\mouj-debug.html:5435:#appRoot > #phone.screen.on,
   C:\Users\404pc\Desktop\mouj-debug.html:5436:#appRoot > #otp.screen.on,
+  C:\Users\404pc\Desktop\mouj-debug.html:5437:#appRoot > #profile.screen.on,
+  C:\Users\404pc\Desktop\mouj-debug.html:5438:#appRoot > #home.screen.on,
+  C:\Users\404pc\Desktop\mouj-debug.html:5439:#appRoot > #chat.screen.on {
+  C:\Users\404pc\Desktop\mouj-debug.html:5440:  display:flex !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:5441:}
+> C:\Users\404pc\Desktop\mouj-debug.html:5442:#appRoot #phone.screen.on,
+  C:\Users\404pc\Desktop\mouj-debug.html:5443:#appRoot #otp.screen.on,
+  C:\Users\404pc\Desktop\mouj-debug.html:5444:#appRoot #profile.screen.on,
+  C:\Users\404pc\Desktop\mouj-debug.html:5445:#appRoot #home.screen.on,
   C:\Users\404pc\Desktop\mouj-debug.html:5446:#appRoot #chat.screen.on {
   C:\Users\404pc\Desktop\mouj-debug.html:5447:  height:100% !important;
-> C:\Users\404pc\Desktop\mouj-debug.html:5448:  min-height:0 !important;
   C:\Users\404pc\Desktop\mouj-debug.html:5449:}
   C:\Users\404pc\Desktop\mouj-debug.html:5450:@supports (height:100dvh) {
-  C:\Users\404pc\Desktop\mouj-debug.html:5451:  body { height:100dvh !important; min-height:100dvh !important; }
-  C:\Users\404pc\Desktop\mouj-debug.html:5479:</html>
-  C:\Users\404pc\Desktop\mouj-debug.html:5480:/* Final chat scroll safety override */
-> C:\Users\404pc\Desktop\mouj-debug.html:5481:.chat{display:flex!important;flex-direction:column!important;min-height:0!important;height:100%!important;overflow:hidden!important}
-> C:\Users\404pc\Desktop\mouj-debug.html:5482:.chat .messages{display:flex!important;flex:1 1 
-auto!important;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior:contain!important}
-  C:\Users\404pc\Desktop\mouj-debug.html:5483:.chat .composer{flex:0 0 auto!important}
-  C:\Users\404pc\Desktop\mouj-debug.html:5484:
-  C:\Users\404pc\Desktop\mouj-debug.html:5485:
-  C:\Users\404pc\Desktop\mouj-debug.html:5574:.bubble.me{background:#dff7eb!important;color:#17372c!important;border-color:#c7efdd!important}
-  C:\Users\404pc\Desktop\mouj-debug.html:5575:.bubble .file-card{background:#edf1f7!important;color:#172033!important}
-> C:\Users\404pc\Desktop\mouj-debug.html:5576:.preview-screen{z-index:100!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;min-height:0!important;overflow:hidden!important;displ
-ay:none;flex-direction:column!important}
+> C:\Users\404pc\Desktop\mouj-debug.html:5451:  body { height:100dvh !important; min-height:100dvh !important; }
+> C:\Users\404pc\Desktop\mouj-debug.html:5452:  #appRoot.app { height:100dvh !important; min-height:100dvh !important; }
+  C:\Users\404pc\Desktop\mouj-debug.html:5453:}
+  C:\Users\404pc\Desktop\mouj-debug.html:5454:</style>
+  C:\Users\404pc\Desktop\mouj-debug.html:5455:<script id="mouj-webview-layout-report">
+  C:\Users\404pc\Desktop\mouj-debug.html:5456:(function(){
+  C:\Users\404pc\Desktop\mouj-debug.html:5457:  function report(){
+  C:\Users\404pc\Desktop\mouj-debug.html:5561: --danger:#df3f59!important;--panel:#fff!important;
+  C:\Users\404pc\Desktop\mouj-debug.html:5562:}
+> C:\Users\404pc\Desktop\mouj-debug.html:5563:html,html[data-theme="dark"],html[data-theme="light"],body,body.auth-mode{background:#f5f7fb!important;color:#172033!important}
+> C:\Users\404pc\Desktop\mouj-debug.html:5564:body{color-scheme:light!important}
+  C:\Users\404pc\Desktop\mouj-debug.html:5565:.bg{background:#f5f7fb!important;opacity:.22!important}
+  C:\Users\404pc\Desktop\mouj-debug.html:5566:.bg .blob{display:none!important}
+  C:\Users\404pc\Desktop\mouj-debug.html:5567:.app{background:#fff!important;border-color:#e3e8f0!important;box-shadow:0 14px 60px rgba(35,55,85,.10)!important}
+  C:\Users\404pc\Desktop\mouj-debug.html:5568:.screen,.preview-screen{background:#fff!important;color:#172033!important}
+  C:\Users\404pc\Desktop\mouj-debug.html:5569:.chathead,.preview-head,.chat-search,.chat-search-results{background:#fff!important;color:#172033!important;border-color:#e6eaf1!important}
+  C:\Users\404pc\Desktop\mouj-debug.html:5576:.preview-screen{z-index:100!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;min-height:0!important;overflow:hidden!important;display:none;flex-
+direction:column!important}
   C:\Users\404pc\Desktop\mouj-debug.html:5577:.preview-screen.on{display:flex!important}
-> C:\Users\404pc\Desktop\mouj-debug.html:5578:.preview-body{display:block!important;min-height:0!important;flex:1 1 auto!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;padding:18px 14px 
-calc(110px + env(safe-area-inset-bottom))!important;background:#fff!important}
+> C:\Users\404pc\Desktop\mouj-debug.html:5578:.preview-body{display:block!important;min-height:0!important;flex:1 1 auto!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;padding:18px 14px calc(110px + 
+env(safe-area-inset-bottom))!important;background:#fff!important}
   C:\Users\404pc\Desktop\mouj-debug.html:5579:.preview-info,.preview-title,.preview-meta,.preview-desc,.section-label{color:#172033!important}
   C:\Users\404pc\Desktop\mouj-debug.html:5580:.preview-join{position:absolute!important;bottom:0!important;left:0!important;right:0!important;padding:12px 15px 
 max(12px,env(safe-area-inset-bottom))!important;background:rgba(255,255,255,.97)!important;border-top:1px solid #e8edf4!important}
   C:\Users\404pc\Desktop\mouj-debug.html:5581:.preview-join button{background:#367bf5!important;color:#fff!important;box-shadow:0 5px 18px rgba(54,123,245,.18)!important}
+  C:\Users\404pc\Desktop\mouj-debug.html:5582:#ctxMenu{display:none!important;position:fixed!important;top:50%!important;left:50%!important;right:auto!important;bottom:auto!important;transform:translate(-50%,-46%) 
+scale(.92)!important;width:min(360px,calc(100vw - 24px))!important;max-width:calc(100vw - 24px)!important;max-height:76dvh!important;overflow-y:auto!important;background:#fff!important;color:#172033!important;border:1px solid 
+#e1e7f0!important;border-radius:22px!important;box-shadow:0 20px 65px rgba(30,50,80,.22)!important;z-index:100002!important;opacity:0;pointer-events:none!important;padding:12px!important}
+  C:\Users\404pc\Desktop\mouj-debug.html:5583:#ctxMenu.on{display:block!important;opacity:1!important;pointer-events:auto!important;transform:translate(-50%,-50%) scale(1)!important;animation:moujContextPop .28s ease-out both}
+  C:\Users\404pc\Desktop\mouj-debug.html:5595:html[data-theme="dark"] .detail-head{background:rgba(255,255,255,.96)!important}
+  C:\Users\404pc\Desktop\mouj-debug.html:5596:html[data-theme="dark"] .chat-bottom-fab{background:#fff!important;color:#2868d8!important}
+> C:\Users\404pc\Desktop\mouj-debug.html:5597:@media(max-width:520px){.preview-screen{border-radius:0!important}.preview-body{padding-bottom:calc(120px + env(safe-area-inset-bottom))!important}#ctxMenu{max-height:72dvh!important}}
+  C:\Users\404pc\Desktop\mouj-debug.html:5598:</style>
+  C:\Users\404pc\Desktop\mouj-debug.html:5599:<script id="mouj-light-android-fixes-2026-10-21-js">
+  C:\Users\404pc\Desktop\mouj-debug.html:5600:(function(){
+  C:\Users\404pc\Desktop\mouj-debug.html:5601:  // This build is intentionally light-only. Ignore previously saved dark/system preferences.
+  C:\Users\404pc\Desktop\mouj-debug.html:5602:  try{localStorage.setItem('mouj_theme','light');}catch(e){}
+  C:\Users\404pc\Desktop\mouj-debug.html:5632:</script>
+  C:\Users\404pc\Desktop\mouj-debug.html:5633:<style id="mouj-final-viewport-fix">
+> C:\Users\404pc\Desktop\mouj-debug.html:5634:html {
+  C:\Users\404pc\Desktop\mouj-debug.html:5635:  width: 100% !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:5636:  height: 100% !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:5637:  min-height: 100% !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:5638:  overflow: hidden !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:5639:}
+  C:\Users\404pc\Desktop\mouj-debug.html:5640:
+> C:\Users\404pc\Desktop\mouj-debug.html:5641:body {
+  C:\Users\404pc\Desktop\mouj-debug.html:5642:  position: fixed !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:5643:  inset: 0 !important;
   C:\Users\404pc\Desktop\mouj-debug.html:5644:  width: auto !important;
   C:\Users\404pc\Desktop\mouj-debug.html:5645:  height: auto !important;
-> C:\Users\404pc\Desktop\mouj-debug.html:5646:  min-height: 0 !important;
-  C:\Users\404pc\Desktop\mouj-debug.html:5647:  max-height: none !important;
-  C:\Users\404pc\Desktop\mouj-debug.html:5648:  margin: 0 !important;
-  C:\Users\404pc\Desktop\mouj-debug.html:5649:  padding: 0 !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:5646:  min-height: 0 !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:5652:}
+  C:\Users\404pc\Desktop\mouj-debug.html:5653:
+> C:\Users\404pc\Desktop\mouj-debug.html:5654:#appRoot.app {
+  C:\Users\404pc\Desktop\mouj-debug.html:5655:  position: absolute !important;
+  C:\Users\404pc\Desktop\mouj-debug.html:5656:  inset: 0 !important;
   C:\Users\404pc\Desktop\mouj-debug.html:5657:  width: auto !important;
   C:\Users\404pc\Desktop\mouj-debug.html:5658:  height: auto !important;
-> C:\Users\404pc\Desktop\mouj-debug.html:5659:  min-height: 0 !important;
-  C:\Users\404pc\Desktop\mouj-debug.html:5660:  max-height: none !important;
-  C:\Users\404pc\Desktop\mouj-debug.html:5661:  margin: 0 !important;
-  C:\Users\404pc\Desktop\mouj-debug.html:5662:  padding: 0 !important;
-  C:\Users\404pc\Desktop\mouj-debug.html:5673:  width: 100% !important;
-  C:\Users\404pc\Desktop\mouj-debug.html:5674:  height: 100% !important;
-> C:\Users\404pc\Desktop\mouj-debug.html:5675:  min-height: 0 !important;
-  C:\Users\404pc\Desktop\mouj-debug.html:5676:  display: flex !important;
-  C:\Users\404pc\Desktop\mouj-debug.html:5677:  flex-direction: column !important;
-  C:\Users\404pc\Desktop\mouj-debug.html:5678:}
+  C:\Users\404pc\Desktop\mouj-debug.html:5659:  min-height: 0 !important;
 
 
-PS D:\Mouj> 
