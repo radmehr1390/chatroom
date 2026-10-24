@@ -1,117 +1,295 @@
-PS D:\Mouj> D:\sdkk\platform-tools\adb.exe shell am force-stop ir.mouj
-PS D:\Mouj> D:\sdkk\platform-tools\adb.exe logcat -c
-PS D:\Mouj> D:\sdkk\platform-tools\adb.exe shell monkey -p ir.mouj 1
-  bash arg: -p
-  bash arg: ir.mouj
-  bash arg: 1
-args: [-p, ir.mouj, 1]
- arg: "-p"
- arg: "ir.mouj"
- arg: "1"
-data="ir.mouj"
-Events injected: 1
-## Network stats: elapsed time=33ms (0ms mobile, 0ms wifi, 33ms not connected)
-PS D:\Mouj> Start-Sleep -Seconds 8
-PS D:\Mouj> D:\sdkk\platform-tools\adb.exe logcat -d | Select-String -Pattern "WEBVIEW_SIZE|No diagnostic result|MOUJ_LAYOUT_FIX_REPORT|appRoot|PAGE_STARTED|Firebase token injected|chromium|Console"
+PS D:\Mouj> Write-Host "`n===== MainActivity.kt ====="
 
-10-25 01:43:06.057 22748 22748 D nativeloader: InitDefaultPublicLibraries for_preload=1: libandroid.so:libaaudio.so:libamidi.so:libbinder_ndk.so:libc.so:libcamera2ndk.so:libdl.so:libEGL.so:libGLESv1_CM.so:libGLESv2.so:libGLESv3
-.so:libicu.so:libicui18n.so:libicuuc.so:libjnigraphics.so:liblog.so:libmediandk.so:libm.so:libnativehelper.so:libnativewindow.so:libOpenMAXAL.so:libOpenSLES.so:libRS.so:libstdc++.so:libsync.so:libvulkan.so:libwebviewchromium_pl
-at_support.so:libz.so
-10-25 01:43:06.921 22770 22770 D nativeloader: Load /system/lib64/libwebviewchromium_plat_support.so using class loader ns product-clns-6 (caller=/product/app/WebViewGoogle/WebViewGoogle.apk): ok
-10-25 01:43:06.925 22770 22811 E chromium: [1025/014306.925373:ERROR:variations_seed_loader.cc(37)] Seed missing signature.
-10-25 01:43:06.925 22770 22811 I chromium: [1025/014306.925856:INFO:variations_seed_loader.cc(66)] Failed to open file for reading.: No such file or directory (2)
-10-25 01:43:06.970  1407  1798 I ActivityManager: Start proc 22816:com.google.android.webview:sandboxed_process0:org.chromium.content.app.SandboxedProcessService0:0/u0i558 for  
-{ir.mouj/org.chromium.content.app.SandboxedProcessService0:0}
-10-25 01:43:06.970  1407  1798 I DynamicHiddenApp_BGProtectManager: check webview name : com.google.android.webview:sandboxed_process0:org.chromium.content.app.SandboxedProcessService0:0check hostingname webview : 
-{ir.mouj/org.chromium.content.app.SandboxedProcessService0:0}
-10-25 01:43:07.031 22816 22816 I cr_WebViewApkApp: version=126.0.6478.110 (647811031) minSdkVersion=29 isBundle=true processName=com.google.android.webview:sandboxed_process0:org.chromium.content.app.SandboxedProcessService0:0
-10-25 01:43:07.055 22770 22770 D ConnectivityManager: StackLog: [android.net.ConnectivityManager.sendRequestForNetwork(ConnectivityManager.java:4698)] 
-[android.net.ConnectivityManager.sendRequestForNetwork(ConnectivityManager.java:4867)] [android.net.ConnectivityManager.registerDefaultNetworkCallbackForUid(ConnectivityManager.java:5427)] 
-[android.net.ConnectivityManager.registerDefaultNetworkCallback(ConnectivityManager.java:5395)] [WV.wD.e(chromium-TrichromeWebViewGoogle.aab-stable-647811031:44)] 
-[WV.wD.b(chromium-TrichromeWebViewGoogle.aab-stable-647811031:1)] [org.chromium.android_webview.AwContentsLifecycleNotifier.onFirstWebViewCreated(chromium-TrichromeWebViewGoogle.aab-stable-647811031:22)] [J.N.MFiR_zHY(Native 
-Method)] [org.chromium.android_webview.AwContents.<init>(chromium-TrichromeWebViewGoogle.aab-stable-647811031:459)] [com.android.webview.chromium.k.run(chromium-TrichromeWebViewGoogle.aab-stable-647811031:147)] 
-[WV.GY.b(chromium-TrichromeWebViewGoogle.aab-stable-647811031:20)] [WV.FY.run(chromium-TrichromeWebViewGoogle.aab-stable-647811031:3)] 
-[org.chromium.base.task.PostTask.e(chromium-TrichromeWebViewGoogle.aab-stable-647811031:11)] [WV.GY.a(chromium-TrichromeWebViewGoogle.aab-stable-647811031:23)] 
-[com.android.webview.chromium.WebViewChromiumFactoryProvider.a(chromium-TrichromeWebViewGoogle.aab-stable-647811031:3)] 
-[com.android.webview.chromium.WebViewChromium.init(chromium-TrichromeWebViewGoogle.aab-stable-647811031:327)] [android.webkit.WebView.<init>(WebView.java:447)] [android.webkit.WebView.<init>(WebView.java:367)] 
-[android.webkit.WebView.<init>(WebView.java:349)] [android.webkit.WebView.<init>(WebView.java:336)] [android.webkit.WebView.<init>(WebView.java:326)] [ir.mouj.MainActivity.createWebView(MainActivity.kt:250)] 
-[ir.mouj.MainActivity.onCreate$lambda$27$lambda$26$lambda$25$lambda$24$lambda$15$lambda$14(MainActivity.kt:187)] [ir.mouj.MainActivity.$r8$lambda$GqVTYGXgaYN54MIi5ZiQxEWuU8Y(MainActivity.kt:0)] 
-[ir.mouj.MainActivity$$ExternalSyntheticLambda14.invoke(D8$$SyntheticClass:0)] [androidx.compose.ui.viewinterop.ViewFactoryHolder.<init>(AndroidView.android.kt:344)] 
-[androidx.compose.ui.viewinterop.AndroidView_androidKt$createAndroidViewNodeFactory$1$1.invoke(AndroidView.android.kt:275)] 
-[androidx.compose.ui.viewinterop.AndroidView_androidKt$createAndroidViewNodeFactory$1$1.invoke(AndroidView.android.kt:274)] [androidx.compose.runtime.changelist.Operation$InsertNodeFixup.execute(Operation.kt:585)] 
-[androidx.compose.runtime.changelist.Operations.executeAndFlushAllPendingOperations(Operations.kt:310)] [androidx.compose.runtime.changelist.FixupList.executeAndFlushAllPendingFixups(FixupList.kt:50)] 
-[androidx.compose.runtime.changelist.Operation$InsertSlotsWithFixups.execute(Operation.kt:552)] [androidx.compose.runtime.changelist.Operations.executeAndFlushAllPendingOperations(Operations.kt:310)] 
-[androidx.compose.runtime.changelist.ChangeList.executeAndFlushAllPendingChanges(ChangeList.kt:81)] [androidx.compose.runtime.CompositionImpl.applyChangesInLocked(Composition.kt:984)] 
-[androidx.compose.runtime.CompositionImpl.applyChanges(Composition.kt:1013)] [androidx.compose.runtime.Recomposer.composeInitial$runtime_release(Recomposer.kt:1150)] 
-[androidx.compose.runtime.CompositionImpl.composeInitial(Composition.kt:649)] [androidx.compose.runtime.CompositionImpl.setContent(Composition.kt:635)] 
-[androidx.compose.ui.platform.WrappedComposition$setContent$1.invoke(Wrapper.android.kt:133)] [androidx.compose.ui.platform.WrappedComposition$setContent$1.invoke(Wrapper.android.kt:124)] 
-[androidx.compose.ui.platform.AndroidComposeView.setOnViewTreeOwnersAvailable(AndroidComposeView.android.kt:1625)] [androidx.compose.ui.platform.WrappedComposition.setContent(Wrapper.android.kt:124)] 
-[androidx.compose.ui.platform.WrappedComposition.onStateChanged(Wrapper.android.kt:180)] [androidx.lifecycle.LifecycleRegistry$ObserverWithState.dispatchEvent(LifecycleRegistry.jvm.kt:320)] 
-[androidx.lifecycle.LifecycleRegistry.addObserver(LifecycleRegistry.jvm.kt:198)] [androidx.compose.ui.platform.WrappedComposition$setContent$1.invoke
-10-25 01:43:07.059 22770 22770 D ConnectivityManager: StackLog: [android.net.ConnectivityManager.sendRequestForNetwork(ConnectivityManager.java:4698)] 
-[android.net.ConnectivityManager.sendRequestForNetwork(ConnectivityManager.java:4867)] [android.net.ConnectivityManager.sendRequestForNetwork(ConnectivityManager.java:4873)] 
-[android.net.ConnectivityManager.registerNetworkCallback(ConnectivityManager.java:5288)] [WV.wD.e(chromium-TrichromeWebViewGoogle.aab-stable-647811031:93)] [WV.wD.b(chromium-TrichromeWebViewGoogle.aab-stable-647811031:1)] 
-[org.chromium.android_webview.AwContentsLifecycleNotifier.onFirstWebViewCreated(chromium-TrichromeWebViewGoogle.aab-stable-647811031:22)] [J.N.MFiR_zHY(Native Method)] 
-[org.chromium.android_webview.AwContents.<init>(chromium-TrichromeWebViewGoogle.aab-stable-647811031:459)] [com.android.webview.chromium.k.run(chromium-TrichromeWebViewGoogle.aab-stable-647811031:147)] 
-[WV.GY.b(chromium-TrichromeWebViewGoogle.aab-stable-647811031:20)] [WV.FY.run(chromium-TrichromeWebViewGoogle.aab-stable-647811031:3)] 
-[org.chromium.base.task.PostTask.e(chromium-TrichromeWebViewGoogle.aab-stable-647811031:11)] [WV.GY.a(chromium-TrichromeWebViewGoogle.aab-stable-647811031:23)] 
-[com.android.webview.chromium.WebViewChromiumFactoryProvider.a(chromium-TrichromeWebViewGoogle.aab-stable-647811031:3)] 
-[com.android.webview.chromium.WebViewChromium.init(chromium-TrichromeWebViewGoogle.aab-stable-647811031:327)] [android.webkit.WebView.<init>(WebView.java:447)] [android.webkit.WebView.<init>(WebView.java:367)] 
-[android.webkit.WebView.<init>(WebView.java:349)] [android.webkit.WebView.<init>(WebView.java:336)] [android.webkit.WebView.<init>(WebView.java:326)] [ir.mouj.MainActivity.createWebView(MainActivity.kt:250)] 
-[ir.mouj.MainActivity.onCreate$lambda$27$lambda$26$lambda$25$lambda$24$lambda$15$lambda$14(MainActivity.kt:187)] [ir.mouj.MainActivity.$r8$lambda$GqVTYGXgaYN54MIi5ZiQxEWuU8Y(MainActivity.kt:0)] 
-[ir.mouj.MainActivity$$ExternalSyntheticLambda14.invoke(D8$$SyntheticClass:0)] [androidx.compose.ui.viewinterop.ViewFactoryHolder.<init>(AndroidView.android.kt:344)] 
-[androidx.compose.ui.viewinterop.AndroidView_androidKt$createAndroidViewNodeFactory$1$1.invoke(AndroidView.android.kt:275)] 
-[androidx.compose.ui.viewinterop.AndroidView_androidKt$createAndroidViewNodeFactory$1$1.invoke(AndroidView.android.kt:274)] [androidx.compose.runtime.changelist.Operation$InsertNodeFixup.execute(Operation.kt:585)] 
-[androidx.compose.runtime.changelist.Operations.executeAndFlushAllPendingOperations(Operations.kt:310)] [androidx.compose.runtime.changelist.FixupList.executeAndFlushAllPendingFixups(FixupList.kt:50)] 
-[androidx.compose.runtime.changelist.Operation$InsertSlotsWithFixups.execute(Operation.kt:552)] [androidx.compose.runtime.changelist.Operations.executeAndFlushAllPendingOperations(Operations.kt:310)] 
-[androidx.compose.runtime.changelist.ChangeList.executeAndFlushAllPendingChanges(ChangeList.kt:81)] [androidx.compose.runtime.CompositionImpl.applyChangesInLocked(Composition.kt:984)] 
-[androidx.compose.runtime.CompositionImpl.applyChanges(Composition.kt:1013)] [androidx.compose.runtime.Recomposer.composeInitial$runtime_release(Recomposer.kt:1150)] 
-[androidx.compose.runtime.CompositionImpl.composeInitial(Composition.kt:649)] [androidx.compose.runtime.CompositionImpl.setContent(Composition.kt:635)] 
-[androidx.compose.ui.platform.WrappedComposition$setContent$1.invoke(Wrapper.android.kt:133)] [androidx.compose.ui.platform.WrappedComposition$setContent$1.invoke(Wrapper.android.kt:124)] 
-[androidx.compose.ui.platform.AndroidComposeView.setOnViewTreeOwnersAvailable(AndroidComposeView.android.kt:1625)] [androidx.compose.ui.platform.WrappedComposition.setContent(Wrapper.android.kt:124)] 
-[androidx.compose.ui.platform.WrappedComposition.onStateChanged(Wrapper.android.kt:180)] [androidx.lifecycle.LifecycleRegistry$ObserverWithState.dispatchEvent(LifecycleRegistry.jvm.kt:320)] 
-[androidx.lifecycle.LifecycleRegistry.addObserver(LifecycleRegistry.jvm.kt:198)] [androidx.compose.ui.platform.WrappedComposition$setContent$1.invoke(Wrapper.android.kt:13
-10-25 01:43:07.122 22816 22849 W chromium: [WARNING:runtime_features.cc(604)] Fenced frames cannot be enabled in this configuration. Use --enable-features=FencedFrames instead.
-10-25 01:43:07.123 22816 22849 W chromium: [WARNING:runtime_features.cc(649)] SharedStorage cannot be enabled in this configuration. Use --enable-features=SharedStorageAPI in addition.
-10-25 01:43:07.123 22816 22849 W chromium: [WARNING:runtime_features.cc(659)] SharedStorage for M118+ cannot be enabled in this configuration. Use --enable-features=SharedStorageAPI,SharedStorageAPIM118 in addition.
-10-25 01:43:07.236 22770 22770 I MoujPageDebug: Firebase token injected into page
-10-25 01:43:07.315 22770 22770 I ir.mouj : hiddenapi: Accessing hidden field Landroid/content/pm/ApplicationInfo;->primaryCpuAbi:Ljava/lang/String; (runtime_flags=0, domain=platform, api=unsupported) from 
-Lorg/chromium/android_webview/SystemStateUtil; (domain=app, TargetSdkVersion=36) using reflection: allowed
-10-25 01:43:07.327 22816 22849 I chromium: [INFO:viewport_data.cc(133)] E2E_Used ViewportFitCover
-10-25 01:43:07.371 22770 22770 I MoujPageDebug: PAGE_STARTED url=https://chat.radmehrweb.ir/mouj-messenger.html
-10-25 01:43:07.409 22816 22849 I chromium: [INFO:document_style_environment_variables.cc(104)] E2E_Used SafeAreaInsetBottom
-10-25 01:43:07.486 22770 22770 D MoujWebConsole: LOG MOUJ_LAYOUT_FIX_REPORT {"innerHeight":723,"docClientHeight":723,"bodyRect":0,"appRect":0,"appDisplay":"flex","appPosition":"fixed","phoneClass":"screen on auth"} at 
-https://chat.radmehrweb.ir/mouj-messenger.html:5461
-10-25 01:43:07.489 22770 22770 D MoujWebConsole: LOG MOUJ_LAYOUT_FIX_REPORT {"innerHeight":723,"docClientHeight":723,"bodyRect":0,"appRect":0,"appDisplay":"flex","appPosition":"fixed","phoneClass":"screen on auth"} at 
-https://chat.radmehrweb.ir/mouj-messenger.html:5461
-10-25 01:43:07.493 22770 22770 I MoujPageDebug: WEBVIEW_SIZE width=1080 height=2168 measuredWidth=1080 measuredHeight=2168
-10-25 01:43:07.493 22770 22770 I MoujPageDebug: Firebase token injected into page
-10-25 01:43:07.506 22770 22770 I MoujLayoutCheck: "{\"url\":\"https://chat.radmehrweb.ir/mouj-messenger.html\",\"readyState\":\"complete\",\"viewport\":{\"width\":360,\"height\":723},\"bodyClass\":\"auth-mode\",\"body\":{\"heig
-ht\":0,\"cssHeight\":\"0px\",\"display\":\"block\",\"position\":\"fixed\"},\"elements\":[{\"id\":\"appRoot\",\"height\":0,\"width\":360,\"cssHeight\":\"0px\",\"display\":\"flex\",\"position\":\"fixed\",\"visibility\":\"visible\
-",\"className\":\"app\",\"inlineStyle\":null},{\"id\":\"phone\",\"height\":48,\"width\":360,\"cssHeight\":\"48px\",\"display\":\"flex\",\"position\":\"relative\",\"visibility\":\"visible\",\"className\":\"screen on 
-auth\",\"inlineStyle\":null},{\"id\":\"otp\",\"height\":0,\"width\":0,\"cssHeight\":\"auto\",\"display\":\"none\",\"position\":\"absolute\",\"visibility\":\"visible\",\"className\":\"screen 
-auth\",\"inlineStyle\":null},{\"id\":\"profile\",\"height\":0,\"width\":0,\"cssHeight\":\"auto\",\"display\":\"none\",\"position\":\"absolute\",\"visibility\":\"visible\",\"className\":\"screen auth\",\"inlineStyle\":null}]}"
+===== MainActivity.kt =====
+PS D:\Mouj> Get-Content "D:\Mouj\app\src\main\java\ir\mouj\MainActivity.kt" |
+>>   Select-String -Pattern "WebView|webView|loadUrl|javaScriptEnabled|domStorageEnabled|onPageFinished|onReceivedError|shouldOverrideUrlLoading|evaluateJavascript|setWebContentsDebuggingEnabled|clearCache|userAgentString|setLayerType" -Context 2,3
+
+  import android.webkit.WebResourceRequest
+  import android.webkit.WebSettings
+> import android.webkit.WebView
+> import android.webkit.WebViewClient
+  import android.widget.Toast
+  import androidx.activity.ComponentActivity
+  import androidx.activity.compose.BackHandler
+      }
+  
+>     private var webView: WebView? = null
+      private var firebaseToken: String? = null
+  
+      private var fileChooserCallback: ValueCallback<Array<Uri>>? = null
+  
+                  BackHandler(enabled = canGoBack) {
+>                     webView?.let { view ->
+                          if (view.canGoBack()) {
+                              view.goBack()
+                          }
+                              modifier = Modifier.fillMaxSize(),
+                              factory = { ctx ->
+>                                 createWebView(ctx).also { view ->
+>                                     webView = view
+>                                     view.loadUrl(HOME_URL)
+                                  }
+                              },
+                              update = { view ->
+>                                 if (webView !== view) {
+>                                     webView = view
+                                  }
+                              }
+                          )
+                                          loading = true
+                                          pageProgress = 0
+>                                         webView?.loadUrl(HOME_URL)
+                                      }
+                                  ) {
+                                      Text("تلاش دوباره")
+      }
+  
+>     @SuppressLint("SetJavaScriptEnabled")
+>     private fun createWebView(context: Context): WebView {
+>         return WebView(context).apply {
+  
+              setBackgroundColor(Color.WHITE)
+  
+              settings.apply {
+>                 javaScriptEnabled = true
+>                 domStorageEnabled = true
+                  databaseEnabled = true
+                  loadsImagesAutomatically = true
+                  javaScriptCanOpenWindowsAutomatically = true
+              cookieManager.setAcceptThirdPartyCookies(this, true)
+  
+>             webViewClient = object : WebViewClient() {
+  
+                  override fun onPageStarted(
+>                     view: WebView,
+                      url: String,
+                      favicon: android.graphics.Bitmap?
+                  ) {
+                  }
+  
+>                 override fun onPageFinished(
+>                     view: WebView,
+                      url: String
+                  ) {
+>                     super.onPageFinished(view, url)
+  
+                      Log.i(
+                          TAG_PAGE,
+>                         "WEBVIEW_SIZE width=${view.width} " +
+                                  "height=${view.height} " +
+                                  "measuredWidth=${view.measuredWidth} " +
+                                  "measuredHeight=${view.measuredHeight}"
+                  }
+  
+>                 override fun onReceivedError(
+>                     view: WebView,
+                      request: WebResourceRequest,
+                      error: WebResourceError
+                  ) {
+>                     super.onReceivedError(view, request, error)
+  
+                      Log.e(
+                          TAG_PAGE,
+  
+                  override fun onReceivedHttpError(
+>                     view: WebView,
+                      request: WebResourceRequest,
+                      errorResponse: android.webkit.WebResourceResponse
+                  ) {
+                  }
+  
+>                 override fun shouldOverrideUrlLoading(
+>                     view: WebView,
+                      request: WebResourceRequest
+                  ): Boolean {
+                      val uri = request.url
+  
+                  override fun onProgressChanged(
+>                     view: WebView,
+                      newProgress: Int
+                  ) {
+                      super.onProgressChanged(view, newProgress)
+  
+                  override fun onShowFileChooser(
+>                     view: WebView,
+                      filePathCallback: ValueCallback<Array<Uri>>,
+                      fileChooserParams: FileChooserParams
+                  ): Boolean {
+  
+                  override fun onCreateWindow(
+>                     view: WebView,
+                      isDialog: Boolean,
+                      isUserGesture: Boolean,
+                      resultMsg: android.os.Message
+       * این تابع فقط اطلاعات می‌خواند و CSS سایت را تغییر نمی‌دهد.
+       */
+>     private fun collectLayoutDiagnostics(view: WebView) {
+          val script = """
+              (function() {
+                const ids = ['appRoot', 'phone', 'otp', 'profile'];
+          """.trimIndent()
+  
+>         view.evaluateJavascript(script) { result ->
+              Log.i(TAG_LAYOUT, result ?: "No diagnostic result")
+          }
+      }
+      private fun injectFirebaseToken() {
+          val token = firebaseToken ?: return
+>         val view = webView ?: return
+  
+          val script =
+              "window.MOUJ_FCM_TOKEN = ${JSONObject.quote(token)};" +
+                      "window.dispatchEvent(new Event('mouj-fcm-token'));"
+  
+>         view.evaluateJavascript(script, null)
+          Log.i(TAG_PAGE, "Firebase token injected into page")
+      }
+  
+      override fun onResume() {
+          super.onResume()
+>         webView?.onResume()
+      }
+  
+      override fun onPause() {
+>         webView?.onPause()
+          super.onPause()
+      }
+  
+          pendingWebPermission = null
+  
+>         webView?.apply {
+              stopLoading()
+>             loadUrl("about:blank")
+              removeAllViews()
+              destroy()
+          }
+  
+>         webView = null
+          super.onDestroy()
+      }
+  }
 
 
-PS D:\Mouj> Select-String -Path "D:\Mouj\app\src\main\java\ir\mouj\MainActivity.kt" -Pattern "TAG_LAYOUT|TAG_PAGE|const val TAG|private const val TAG"
+PS D:\Mouj> 
+PS D:\Mouj> Write-Host "`n===== AndroidManifest.xml ====="
 
-app\src\main\java\ir\mouj\MainActivity.kt:71:        private const val TAG_PAGE = "MoujPageDebug"
-app\src\main\java\ir\mouj\MainActivity.kt:72:        private const val TAG_CONSOLE = "MoujWebConsole"
-app\src\main\java\ir\mouj\MainActivity.kt:73:        private const val TAG_LAYOUT = "MoujLayoutCheck"
-app\src\main\java\ir\mouj\MainActivity.kt:133:                Log.i(TAG_PAGE, "FCM token received")
-app\src\main\java\ir\mouj\MainActivity.kt:139:                Log.e(TAG_PAGE, "FCM token error: ${error.message}")
-app\src\main\java\ir\mouj\MainActivity.kt:151:                            TAG_PAGE,
-app\src\main\java\ir\mouj\MainActivity.kt:290:                    Log.i(TAG_PAGE, "PAGE_STARTED url=$url")
-app\src\main\java\ir\mouj\MainActivity.kt:300:                        TAG_PAGE,
-app\src\main\java\ir\mouj\MainActivity.kt:322:                        TAG_PAGE,
-app\src\main\java\ir\mouj\MainActivity.kt:347:                        TAG_PAGE,
-app\src\main\java\ir\mouj\MainActivity.kt:375:                                TAG_PAGE,
-app\src\main\java\ir\mouj\MainActivity.kt:387:                            TAG_PAGE,
-app\src\main\java\ir\mouj\MainActivity.kt:444:                        Log.e(TAG_PAGE, "File chooser error", error)
-app\src\main\java\ir\mouj\MainActivity.kt:548:            Log.i(TAG_LAYOUT, result ?: "No diagnostic result")
-app\src\main\java\ir\mouj\MainActivity.kt:561:        Log.i(TAG_PAGE, "Firebase token injected into page")
-app\src\main\java\ir\mouj\MainActivity.kt:626:                Log.w(TAG_PAGE, "Unsupported download URL: $url")
-app\src\main\java\ir\mouj\MainActivity.kt:678:            Log.e(TAG_PAGE, "Download error", error)
+===== AndroidManifest.xml =====
+PS D:\Mouj> Get-Content "D:\Mouj\app\src\main\AndroidManifest.xml"
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+        <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+
+<application
+        android:allowBackup="true"
+        android:icon="@mipmap/mouj_icon"
+        android:roundIcon="@mipmap/mouj_icon"
+        android:label="Mouj"
+        android:supportsRtl="true"
+        android:theme="@android:style/Theme.Material.Light.NoActionBar">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
+        <service
+            android:name=".MoujFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+    </application>
+</manifest>
+PS D:\Mouj> 
+PS D:\Mouj> Write-Host "`n===== Build configuration ====="
+
+===== Build configuration =====
+PS D:\Mouj> Get-Content "D:\Mouj\app\build.gradle.kts"
+
+plugins {
+    alias(libs.plugins.android.application)
+    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.kotlin.compose)
+    id("com.google.gms.google-services")
+}
+
+android {
+    namespace = "ir.mouj"
+    compileSdk = 36
+    buildToolsVersion = "36.0.0"
+
+    defaultConfig {
+        applicationId = "ir.mouj"
+        minSdk = 24
+        targetSdk = 36
+        versionCode = 1
+        versionName = "1.0"
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+
+    buildFeatures {
+        compose = true
+    }
+}
+
+dependencies {
+    implementation(platform("com.google.firebase:firebase-bom:34.19.0"))
+    implementation("com.google.firebase:firebase-messaging")
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.activity.compose)
+
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.graphics)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.compose.material3)
+
+    testImplementation(libs.junit)
+
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
+        }
+    }
+}
 
 
 PS D:\Mouj> 
